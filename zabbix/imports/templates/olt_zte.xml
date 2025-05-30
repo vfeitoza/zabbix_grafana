@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>7.0</version>
+    <templates>
+        <template>
+            <uuid>70ef7ff4427e4293a42ebc7da0ac8693</uuid>
+            <template>Monitoramento - OLT ZTE</template>
+            <name>Monitoramento - OLT ZTE</name>
+            <groups>
+                <group>
+                    <name>Fabricante - ZTE</name>
+                </group>
+                <group>
+                    <name>Equipamentos</name>
+                </group>
+                <group>
+                    <name>OLT's</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>dbd75f2245a84278b34bba6d13ac9486</uuid>
+                    <name>Equipamento</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.1.0</snmp_oid>
+                    <key>hw</key>
+                    <delay>60m</delay>
+                    <history>90d</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                    <inventory_link>HARDWARE</inventory_link>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Status</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>3e8eca5350284bd58e499aba7240663d</uuid>
+                    <name>SNMP Contact</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.4.0</snmp_oid>
+                    <key>sysContact</key>
+                    <delay>1h</delay>
+                    <history>90d</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <inventory_link>CONTACT</inventory_link>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Status</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>03e788dd1e094319a244151e775b966b</uuid>
+                    <name>SNMP Location</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.6.0</snmp_oid>
+                    <key>sysLocation</key>
+                    <delay>1h</delay>
+                    <history>90d</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <inventory_link>LOCATION</inventory_link>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Status</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>5fdd0f60f731430e92f2b60dbcc73c70</uuid>
+                    <name>Hostname</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.5.0</snmp_oid>
+                    <key>sysName</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                    <description>Coleta Informação do hostname do dispositivo</description>
+                    <inventory_link>NAME</inventory_link>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Status</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>11861a72b1fa4ea6b804801d55e72e9a</uuid>
+                    <name>Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>sysUpTime</key>
+                    <history>90d</history>
+                    <units>uptime</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Status</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>8392178c795e4b8196413026f381f640</uuid>
+                            <expression>last(/Monitoramento - OLT ZTE/sysUpTime)&lt;600</expression>
+                            <name>{HOST.NAME} - {HOST.IP} foi reiniciado</name>
+                            <priority>INFO</priority>
+                            <description>Roteador foi reiniciado</description>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>51799c0165e1439dacb6e49d50e225c5</uuid>
+                    <name>Board Status</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.3902.1015.2.1.3.13.5.1.1]</snmp_oid>
+                    <key>discovery.boards</key>
+                    <delay>1h</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>f84f666ff6944a96bb4a963f26f827cc</uuid>
+                            <name>CPU Load Placa {#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.3902.1015.2.1.1.3.1.9.{#SNMPINDEX}</snmp_oid>
+                            <key>boardCpuLoad[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>0a302e9530044fc18c31d2225d5c76ae</uuid>
+                            <name>Status Placa {#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.3902.1015.2.1.1.3.1.5.{#SNMPINDEX}</snmp_oid>
+                            <key>boardStatus[{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>73d5d78038a34326bf46afa16457f327</uuid>
+                            <name>Temperatura Placa {#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.3902.1015.2.1.3.13.5.1.1.{#SNMPINDEX}</snmp_oid>
+                            <key>boardTemperature[{#SNMPINDEX}]</key>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>ca038ff41b454e23b14c8522d82d7a77</uuid>
+                    <name>Fan</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.3902.1015.2.1.3.10.10.10.1.7]</snmp_oid>
+                    <key>discovery.fan</key>
+                    <delay>1h</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>32495dc7860a46a3bd51022c81e09bbb</uuid>
+                            <name>Fan Speed - {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.3902.1015.2.1.3.10.10.10.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>fanSpeed[{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <units>RPM</units>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>8954b9500393423c8155c9c78ea6f094</uuid>
+                    <name>Network interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.2.1.31.1.1.1.18,{#IFNAME},1.3.6.1.2.1.31.1.1.1.1,{#IFTRANSC},1.3.6.1.4.1.3709.3.6.11.3.1.6,{#IFADMINSTATUS},1.3.6.1.2.1.2.2.1.7,{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18]</snmp_oid>
+                    <key>discovery.interfaces</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFADMINSTATUS}</macro>
+                                <value>1</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>188ae7a92b2a49658a2454f8d223ca17</uuid>
+                            <name>Status Operacional {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>if.net.opstatus[{#IFNAME}]</key>
+                            <valuemap>
+                                <name>SNMP interface status (ifOperStatus)</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>428143cec139456fa953dbcd0e394f04</uuid>
+                                    <expression>last(/Monitoramento - OLT ZTE/if.net.opstatus[{#IFNAME}])=2</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/Monitoramento - OLT ZTE/if.net.opstatus[{#IFNAME}])=1</recovery_expression>
+                                    <name>Mudança de Status Operacional na {#IFNAME} - {#SNMPVALUE}</name>
+                                    <status>DISABLED</status>
+                                    <discover>NO_DISCOVER</discover>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>13948fe47bba4b9fb7e556e7c124c44f</uuid>
+                            <name>Alias - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.1.{#SNMPINDEX}</snmp_oid>
+                            <key>ifAlias[{#IFNAME}]</key>
+                            <delay>1h</delay>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>ee66824392d44e618faa8d3f3952ae9d</uuid>
+                            <name>Description {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.18.{#SNMPINDEX}</snmp_oid>
+                            <key>ifDescr[{#IFNAME}]</key>
+                            <delay>1h</delay>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>3ceb3f57efb94320a8ab08a70e83bf76</uuid>
+                            <name>Status Administrativo {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.admstatus[{#IFNAME}]</key>
+                            <delay>30m</delay>
+                            <valuemap>
+                                <name>SNMP interface status (ifAdminStatus)</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>1409fdc0b0944c61acc3a29b2c7354c5</uuid>
+                                    <expression>last(/Monitoramento - OLT ZTE/net.if.admstatus[{#IFNAME}])=2</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/Monitoramento - OLT ZTE/net.if.admstatus[{#IFNAME}])=1</recovery_expression>
+                                    <name>Mudança de Status Administrativo na {#IFNAME} - {#SNMPVALUE}</name>
+                                    <status>DISABLED</status>
+                                    <discover>NO_DISCOVER</discover>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>dbc2590bb73b4cbfb6866550e64abc65</uuid>
+                            <name>Trafego Recebido - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in[ifHCInOctets.{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <units>bps</units>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>2c49f6002d004e79a2090a86fd6993f8</uuid>
+                            <name>MTU {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.mtu[{#IFNAME}]</key>
+                            <delay>8h</delay>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>2aacabd0a0de4623b311d9a931560ce1</uuid>
+                                    <expression>abs(change(/Monitoramento - OLT ZTE/net.if.mtu[{#IFNAME}]))&lt;&gt;0</expression>
+                                    <recovery_mode>NONE</recovery_mode>
+                                    <name>Mudança de MTU na {#IFNAME} - {#SNMPVALUE}</name>
+                                    <status>DISABLED</status>
+                                    <discover>NO_DISCOVER</discover>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>951c6b6d74d04b0d9b171ec5e540ea82</uuid>
+                            <name>Trafego Enviado - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out[ifHCOutOctets.{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <units>bps</units>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>73c47af211764465b026e0c5ea343a96</uuid>
+                            <name>Modulação - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.15.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.speed[ifHighSpeed.{#IFNAME}]</key>
+                            <delay>10m</delay>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>f53aa98c71eb42e3906b5c1a29e74176</uuid>
+                                    <expression>abs(change(/Monitoramento - OLT ZTE/net.if.speed[ifHighSpeed.{#IFNAME}]))&lt;&gt;0</expression>
+                                    <recovery_mode>NONE</recovery_mode>
+                                    <name>Mudança de Modulação na {#IFNAME} - {#SNMPVALUE}</name>
+                                    <status>DISABLED</status>
+                                    <discover>NO_DISCOVER</discover>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <uuid>a903b1cfb88f4688aef266dfedbd9f9f</uuid>
+                            <expression>(avg(/Monitoramento - OLT ZTE/net.if.in[ifHCInOctets.{#IFNAME}],15m)&gt;({$IF_UTIL_MAX:&quot;{#IFNAME}&quot;}/100)*last(/Monitoramento - OLT ZTE/net.if.speed[ifHighSpeed.{#IFNAME}]) or
+avg(/Monitoramento - OLT ZTE/net.if.out[ifHCOutOctets.{#IFNAME}],15m)&gt;({$IF_UTIL_MAX:&quot;{#IFNAME}&quot;}/100)*last(/Monitoramento - OLT ZTE/net.if.speed[ifHighSpeed.{#IFNAME}])) and
+last(/Monitoramento - OLT ZTE/net.if.speed[ifHighSpeed.{#IFNAME}])&gt;0</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>avg(/Monitoramento - OLT ZTE/net.if.in[ifHCInOctets.{#IFNAME}],15m)&lt;(({$IF_UTIL_MAX:&quot;{#IFNAME}&quot;}-3)/100)*last(/Monitoramento - OLT ZTE/net.if.speed[ifHighSpeed.{#IFNAME}]) and
+avg(/Monitoramento - OLT ZTE/net.if.out[ifHCOutOctets.{#IFNAME}],15m)&lt;(({$IF_UTIL_MAX:&quot;{#IFNAME}&quot;}-3)/100)*last(/Monitoramento - OLT ZTE/net.if.speed[ifHighSpeed.{#IFNAME}])</recovery_expression>
+                            <name>Alta utilização de largura de banda (&gt;{$IF_UTIL_MAX:&quot;{#IFNAME}&quot;}%) na interface {#IFNAME} - {#SNMPVALUE}</name>
+                            <status>DISABLED</status>
+                            <discover>NO_DISCOVER</discover>
+                            <priority>WARNING</priority>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>a7aced679f0a47bd8c1f78ce97cae12a</uuid>
+                    <name>ONUs</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.3902.1012.3.13.1.1.1]</snmp_oid>
+                    <key>discovery.onu</key>
+                    <delay>1h</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>6ba858a9e7164aa58bf9bfaaa555e374</uuid>
+                            <name>Quantidade de ONUs na placa {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.3902.1012.3.13.1.1.13.{#SNMPINDEX}</snmp_oid>
+                            <key>1.3.6.1.4.1.3902.1012.3.13.1.1.13.[{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <valuemaps>
+                <valuemap>
+                    <uuid>140991186b81464a95c8917e38592aa8</uuid>
+                    <name>SNMP interface status (ifAdminStatus)</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>UP</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>DOWN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>TESTING</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>a98d9ebdac7e4b44a31e979f82d20588</uuid>
+                    <name>SNMP interface status (ifOperStatus)</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>UP</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>DOWN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>TESTING</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>UNKNOWN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>DORMANT</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>NOTPRESENT</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>LOWERLAYERDOWN</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+</zabbix_export>

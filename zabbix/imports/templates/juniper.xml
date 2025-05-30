@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>7.0</version>
+    <templates>
+        <template>
+            <uuid>befbc341e094431e8646a3d5974b5880</uuid>
+            <template>Monitoramento - Juniper MX</template>
+            <name>Monitoramento - Juniper MX</name>
+            <groups>
+                <group>
+                    <name>Fabricante - JUNIPER</name>
+                </group>
+                <group>
+                    <name>Equipamentos</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>78f47e0cbb1d45828b3028e26c17970f</uuid>
+                    <name>Equipamento</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.1.0</snmp_oid>
+                    <key>hw</key>
+                    <delay>1h</delay>
+                    <history>90d</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                </item>
+                <item>
+                    <uuid>b99f2b83bdc4499687860557d9debf12</uuid>
+                    <name>ActiveAccounting</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2636.3.64.1.1.1.7.0</snmp_oid>
+                    <key>junos.active.accouting</key>
+                    <delay>3m</delay>
+                    <history>90d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Subscribers</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>9d4b5b9298fd4d06835d08770ad1c5d0</uuid>
+                    <name>ActiveSubscribers</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.2636.3.64.1.1.1.2.0</snmp_oid>
+                    <key>junos.active.subscribers</key>
+                    <delay>3m</delay>
+                    <history>90d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Subscribers</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>1ebb744c22c342d29c7d559578bd7d4c</uuid>
+                    <name>Localizacao</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.6.0</snmp_oid>
+                    <key>sys.Location</key>
+                    <delay>300s</delay>
+                    <history>90d</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>System</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>a044b0cf58794812b69652225971c31a</uuid>
+                    <name>Nome</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.5.0</snmp_oid>
+                    <key>sys.Name</key>
+                    <delay>300s</delay>
+                    <history>90d</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>System</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>a6566abdfa5044ffa87e2f9915fd62b6</uuid>
+                    <name>UpTime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>sys.UpTime</key>
+                    <delay>600s</delay>
+                    <history>90d</history>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>System</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>32124535b436407f8b7e8b6cc1909ade</uuid>
+                            <expression>last(/Monitoramento - Juniper MX/sys.UpTime)&lt;600</expression>
+                            <name>{HOST.NAME} - {HOST.IP} foi reiniciado</name>
+                            <priority>INFO</priority>
+                            <description>Roteador foi reiniciado</description>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>78a73ca1e9a246ac97f7b54f25b891e0</uuid>
+                    <name>JunOS Hardware</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.2636.3.1.14.1.2.9]</snmp_oid>
+                    <key>jnxRedundancyL1Index</key>
+                    <delay>1800s</delay>
+                    <lifetime>5d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>87541fcc3e73491f9d701b87629763c0</uuid>
+                            <name>{#SNMPVALUE} - 5 min load avarage</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.3.1.13.1.21.9.{#SNMPVALUE}.0.0</snmp_oid>
+                            <key>jnxOperating5MinLoadAvg.[{#SNMPVALUE}]</key>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Device Health</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>f3e76bf4672047dcb9e826ffa609f12e</uuid>
+                            <name>{#SNMPVALUE} - Memory Usage</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.3.1.13.1.11.9.{#SNMPVALUE}.0.0</snmp_oid>
+                            <key>jnxOperatingBuffer.[{#SNMPVALUE}]</key>
+                            <units>%</units>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Device Health</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>39bb9f97c3534343aed10223af1592c6</uuid>
+                            <name>{#SNMPVALUE} - CPU Usage</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.3.1.13.1.8.9.{#SNMPVALUE}.0.0</snmp_oid>
+                            <key>jnxOperatingCPU.[{#SNMPVALUE}]</key>
+                            <units>%</units>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Device Health</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>a427b7fdc8084b858b722b63cd5003ec</uuid>
+                            <name>{#SNMPVALUE} - Routing Engine temp</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.3.1.13.1.7.9.{#SNMPVALUE}.0.0</snmp_oid>
+                            <key>jnxOperatingTemp.[{#SNMPVALUE}]</key>
+                            <units>°C</units>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Device Health</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>4baa24ea39c84b2ca2e482d90f72e74c</uuid>
+                    <name>BGP</name>
+                    <type>EXTERNAL</type>
+                    <key>LLD.py[&quot;-h&quot;, {HOST.CONN}, &quot;-c&quot;, &quot;{$SNMP_COMMUNITY}&quot;, &quot;-mi&quot;, &quot;{#PEERADDR}&quot;, &quot;-m&quot;, &quot;{#PREFXTBL}&quot;, &quot;{#ADDRTYPE}&quot;, &quot;{#ASNUM}&quot;]</key>
+                    <delay>1800</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>775373e4f6df4e23bf4dc7fe076b0777</uuid>
+                            <name>Established time $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.4.1.1.1.{#SNMPINDEX}</snmp_oid>
+                            <key>jnxBgpM2PeerFsmEstablishedTime[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>300s</delay>
+                            <units>uptime</units>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>6fcba5cbe56c462dab43f5b29c625007</uuid>
+                            <name>Last received error $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.2.1.1.1.{#SNMPINDEX}</snmp_oid>
+                            <key>jnxBgpM2PeerLastErrorReceived[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>300s</delay>
+                            <valuemap>
+                                <name>BgpPeerError</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>3e4bdb10969241a5beb7783b5330ddb7</uuid>
+                            <name>Last sent error $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.2.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>jnxBgpM2PeerLastErrorSent[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>300s</delay>
+                            <valuemap>
+                                <name>BgpPeerError</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>b8d8a4c94fd64c76889d94c7eab07cab</uuid>
+                            <name>Remote AS for peer $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.1.1.1.13.{#SNMPINDEX}</snmp_oid>
+                            <key>jnxBgpM2PeerRemoteAs[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>120s</delay>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>f5ce85c530834ad0aa1bfc17f7bfedc9</uuid>
+                            <name>Operational status $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.1.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>jnxBgpM2PeerState[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>60s</delay>
+                            <valuemap>
+                                <name>BgpPeerState</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>fa0c432ec51e46a0b14af7b97ba33277</uuid>
+                            <name>Administrative status $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.1.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>jnxBgpM2PeerStatus[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>300s</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>b00a982f209b4434a8e9a5249a43d23d</uuid>
+                            <name>Accepted receiving prefixes $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.6.2.1.8.{#PREFXTBL}.{#ADDRTYPE}.1</snmp_oid>
+                            <key>jnxBgpM2PrefixInPrefixesAccepted[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>120s</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>0c2ad15b7f8042e5ae91f646c7db257d</uuid>
+                            <name>Active receiving prefixes $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.6.2.1.11.{#PREFXTBL}.{#ADDRTYPE}.1</snmp_oid>
+                            <key>jnxBgpM2PrefixInPrefixesActive[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>120s</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>07fa3889acdf411dae2bb955b6925caf</uuid>
+                            <name>Rejected receiving prefixes $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.6.2.1.9.{#PREFXTBL}.{#ADDRTYPE}.1</snmp_oid>
+                            <key>jnxBgpM2PrefixInPrefixesRejected[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>120s</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>8adfe29b3a8148728d3a5d424a382914</uuid>
+                            <name>All receiving prefixes $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.6.2.1.7.{#PREFXTBL}.{#ADDRTYPE}.1</snmp_oid>
+                            <key>jnxBgpM2PrefixInPrefixes[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>120s</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>689bd290f5b14a19a7603afab0434293</uuid>
+                            <name>All advertising prefixes $2</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.2636.5.1.1.2.6.2.1.10.{#PREFXTBL}.{#ADDRTYPE}.1</snmp_oid>
+                            <key>jnxBgpM2PrefixOutPrefixes[{#ASNUM}, {#PEERADDR}]</key>
+                            <delay>120s</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>BGP</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>b434f1543d2c4aaaa1d8a17dc5b65fb7</uuid>
+                    <name>Interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.2.1.2.2.1.8,{#IFADMINSTATUS},1.3.6.1.2.1.2.2.1.7,{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18,{#IFNAME},1.3.6.1.2.1.31.1.1.1.1,{#IFDESCR},1.3.6.1.2.1.2.2.1.2,{#IFTYPE},1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>net.if.discovery</key>
+                    <delay>10m</delay>
+                    <filter>
+                        <evaltype>AND</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFADMINSTATUS}</macro>
+                                <value>1</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>(ae|et|xe|ge|lt)</value>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>8e139ea85efe4a9c960157e50a92085f</uuid>
+                            <name>Status Operacional {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>if.net.opstatus[{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>5410504e009d4d4bbd54c3d6c66d4e76</uuid>
+                            <name>Status Administrativo {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.admstatus[{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>a9ba777a055c4035ba13aa675d36a394</uuid>
+                            <name>Description {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.18.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.description[{#SNMPINDEX}]</key>
+                            <delay>30m</delay>
+                            <value_type>TEXT</value_type>
+                            <trends>0</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>004384f7920446fab71dc3b8cdb8ad5b</uuid>
+                            <name>Trafego Recebido - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
+                            <units>bps</units>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>3a7000b253e14837b6a0f72bd3bf9336</uuid>
+                            <name>MAC {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.mac[{#SNMPINDEX}]</key>
+                            <delay>10m</delay>
+                            <value_type>TEXT</value_type>
+                            <trends>0</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>bd9a0230493a4654a000d65fad509c8d</uuid>
+                            <name>MTU {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.mtu[{#SNMPINDEX}]</key>
+                            <delay>30m</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>e316d9c6cf654275911024a37d903346</uuid>
+                            <name>Nome {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.1.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.name[{#SNMPINDEX}]</key>
+                            <delay>59m</delay>
+                            <value_type>TEXT</value_type>
+                            <trends>0</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>d4801db39dc34902b75230416d61229d</uuid>
+                            <name>Trafego Enviado - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out[ifHCOutOctets.{#SNMPINDEX}]</key>
+                            <units>bps</units>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>0432a93826554d72bedefdbd4c4cd7e0</uuid>
+                            <name>Speed {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.15.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.speed[ifHighSpeed.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>218a67ff00194f7499109198c93d0d70</uuid>
+                    <name>Subscribers</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.4.1.2636.3.64.1.1.1.4.1.3.0,{#IFNAME},.1.3.6.1.4.1.2636.3.64.1.1.1.6.1.3.0]</snmp_oid>
+                    <key>subscribers.net.if.discovery</key>
+                    <delay>10m</delay>
+                    <status>DISABLED</status>
+                    <filter>
+                        <evaltype>AND</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFADMINSTATUS}</macro>
+                                <value>1</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>(et|xe|ge)</value>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>949562988c8741cb8936bcc50636fc49</uuid>
+                            <name>Trafego Recebido {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.6.{#SNMPVALUE}</snmp_oid>
+                            <key>net.if.in[ifHCInOctets.{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <history>30d</history>
+                            <trends>30d</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Subscribers</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>f8b0d6293067444185ee289602ee027d</uuid>
+                            <name>Trafego Enviado {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.10.{#SNMPVALUE}</snmp_oid>
+                            <key>net.if.out[ifHCOutOctets.{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <history>30d</history>
+                            <trends>30d</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Subscribers</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <valuemaps>
+                <valuemap>
+                    <uuid>db62655a3f1e4e3b8169cdedbf1bce2b</uuid>
+                    <name>BgpPeerError</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>None</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>256</value>
+                            <newvalue>Message Header Error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>257</value>
+                            <newvalue>Connection Not Synchronized</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>258</value>
+                            <newvalue>Bad Message Length</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>259</value>
+                            <newvalue>Bad Message Type</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>512</value>
+                            <newvalue>Open Message Error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>513</value>
+                            <newvalue>Unsupported Version Number</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>514</value>
+                            <newvalue>Bad Peer AS</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>515</value>
+                            <newvalue>Bad BGP Identifier</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>516</value>
+                            <newvalue>Unsupported Optional Parameter</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>517</value>
+                            <newvalue>Authentication Failure</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>518</value>
+                            <newvalue>Unacceptable Hold Time</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>768</value>
+                            <newvalue>Update Message Error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>769</value>
+                            <newvalue>Malformed Attribute List</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>770</value>
+                            <newvalue>Unrecognized Well-Known Attribute</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>771</value>
+                            <newvalue>Missing Well-Known Attribute</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>772</value>
+                            <newvalue>Attribute Flags Error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>773</value>
+                            <newvalue>Attribute Length Error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>774</value>
+                            <newvalue>Invalid Origin Attribute</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>775</value>
+                            <newvalue>AS Routing Loop</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>776</value>
+                            <newvalue>Invalid Next_Hop Attribute</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>777</value>
+                            <newvalue>Optional Attribute Error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>778</value>
+                            <newvalue>Invalid Network Field</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>779</value>
+                            <newvalue>Malformed AS_Path</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1024</value>
+                            <newvalue>Hold Timer Expired</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1280</value>
+                            <newvalue>Finite State Machine Error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1281</value>
+                            <newvalue>Receive Unexpected Message in OpenSent State</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1282</value>
+                            <newvalue>Receive Unexpected Message in OpenConfirm State</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1283</value>
+                            <newvalue>Receive Unexpected Message in Established State</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1536</value>
+                            <newvalue>Cease</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1537</value>
+                            <newvalue>Maximum Number of Prefixes Reached</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1538</value>
+                            <newvalue>Administrative Shutdown</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1539</value>
+                            <newvalue>Peer De-configured</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1540</value>
+                            <newvalue>Administrative Reset</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1541</value>
+                            <newvalue>Connection Rejected</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1542</value>
+                            <newvalue>Other Configuration Change</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1543</value>
+                            <newvalue>Connection Collision Resolution</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1544</value>
+                            <newvalue>Out of Resources</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>cfbcfbef03c64649aee8a077f3aab801</uuid>
+                    <name>BgpPeerState</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>Idle</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>Connect</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>Active</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>OpenSent</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>OpenConfirm</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>Established</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+</zabbix_export>

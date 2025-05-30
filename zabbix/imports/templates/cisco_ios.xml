@@ -1,0 +1,2525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>7.0</version>
+    <templates>
+        <template>
+            <uuid>3ad623cb0c5145398c8cde77a2fedb89</uuid>
+            <template>Monitoramento - Cisco IOS</template>
+            <name>Monitoramento - Cisco IOS</name>
+            <description>Template Cisco IOS Software releases 12.2(3.5) or later
+
+MIBs used:
+CISCO-MEMORY-POOL-MIB
+IF-MIB
+EtherLike-MIB
+SNMPv2-MIB
+CISCO-ENVMON-MIB
+CISCO-PROCESS-MIB
+ENTITY-MIB
+
+Known Issues:
+
+  Description: no if(in|out)(Errors|Discards) are available for vlan ifType
+  Version: IOS for example: 12.1(22)EA11, 15.4(3)M2
+  Device: C2911, C7600
+
+Template tooling version used: 0.41</description>
+            <groups>
+                <group>
+                    <name>Fabricante - CISCO</name>
+                </group>
+                <group>
+                    <name>Equipamentos</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>3ddd5f69572541f9ba57e838570d516b</uuid>
+                    <name>Clientes Conectados</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.9.9.194.1.1.1.0</snmp_oid>
+                    <key>cisco.pppoe.on</key>
+                    <delay>3m</delay>
+                    <history>90d</history>
+                    <triggers>
+                        <trigger>
+                            <uuid>6cae7d003eb1412ca09931b3adc27976</uuid>
+                            <expression>abs(change(/Monitoramento - Cisco IOS/cisco.pppoe.on)&gt;50)</expression>
+                            <name>Queda PPPOE</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>3a6f74562e0b406ca8a2ec77e481fabc</uuid>
+                    <name>Contato</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.4.0</snmp_oid>
+                    <key>system.contact[sysContact.0]</key>
+                    <delay>15m</delay>
+                    <history>2w</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <description>MIB: SNMPv2-MIB
+The textual identification of the contact person for this managed node, together with information on how to contact this person.  If no contact information is known, the value is the zero-length string.</description>
+                    <inventory_link>CONTACT</inventory_link>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>12h</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>1394d22007b941b8b9fe584ba79ea2d5</uuid>
+                    <name>Descricao</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.1.0</snmp_oid>
+                    <key>system.descr[sysDescr.0]</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <description>MIB: SNMPv2-MIB
+A textual description of the entity. This value should
+include the full name and version identification of the system's hardware type, software operating-system, and
+networking software.</description>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>12h</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>97d1be19cabb4865a80d16d460ea1442</uuid>
+                    <name>Modelo</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.47.1.1.1.1.13.1</snmp_oid>
+                    <key>system.hw.model</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <description>MIB: ENTITY-MIB</description>
+                    <inventory_link>MODEL</inventory_link>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>1d</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>b508cde474f04c86856a1aa96d98e92d</uuid>
+                    <name>Serial Number</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.47.1.1.1.1.11.1</snmp_oid>
+                    <key>system.hw.serialnumber</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <description>MIB: ENTITY-MIB</description>
+                    <inventory_link>SERIALNO_A</inventory_link>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>1d</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>f5fcc70a7ae24cd285550020eba13afc</uuid>
+                    <name>Localizacao</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.6.0</snmp_oid>
+                    <key>system.location[sysLocation.0]</key>
+                    <delay>15m</delay>
+                    <history>2w</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <description>MIB: SNMPv2-MIB
+The physical location of this node (e.g., `telephone closet, 3rd floor').  If the location is unknown, the value is the zero-length string.</description>
+                    <inventory_link>LOCATION</inventory_link>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>12h</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>fae1d5ce1c564664ac0be391ba6fc9d7</uuid>
+                    <name>Hostname</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.5.0</snmp_oid>
+                    <key>system.name</key>
+                    <delay>15m</delay>
+                    <history>2w</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <description>MIB: SNMPv2-MIB
+An administratively-assigned name for this managed node.By convention, this is the node's fully-qualified domain name.  If the name is unknown, the value is the zero-length string.</description>
+                    <inventory_link>NAME</inventory_link>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>12h</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>b12a574579b24f45a71eefe88ea64729</uuid>
+                    <name>System object ID</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.2.0</snmp_oid>
+                    <key>system.objectid[sysObjectID.0]</key>
+                    <delay>15m</delay>
+                    <history>2w</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <description>MIB: SNMPv2-MIB
+The vendor's authoritative identification of the network management subsystem contained in the entity.  This value is allocated within the SMI enterprises subtree (1.3.6.1.4.1) and provides an easy and unambiguous means for determining`what kind of box' is being managed.  For example, if vendor`Flintstones, Inc.' was assigned the subtree1.3.6.1.4.1.4242, it could assign the identifier 1.3.6.1.4.1.4242.1.1 to its `Fred Router'.</description>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>12h</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>c4d03c703d7a4255a54a7459cf5083ee</uuid>
+                    <name>Versao</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.1.0</snmp_oid>
+                    <key>system.sw.os[sysDescr.0]</key>
+                    <delay>1h</delay>
+                    <history>2w</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <description>MIB: SNMPv2-MIB</description>
+                    <inventory_link>OS</inventory_link>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>Version (.+), RELEASE</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>1d</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <uuid>2d72bc2aa2e2449aa98160ba9c37c09b</uuid>
+                    <name>Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>system.uptime[sysUpTime.0]</key>
+                    <delay>10m</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <units>uptime</units>
+                    <description>MIB: SNMPv2-MIB
+The time (in hundredths of a second) since the network management portion of the system was last re-initialized.</description>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <uuid>8a0141ae80be4b6792d0ec2a29ac6c1d</uuid>
+                            <expression>last(/Monitoramento - Cisco IOS/system.uptime[sysUpTime.0])&lt;10m</expression>
+                            <name>{HOST.NAME} - {HOST.IP} foi reiniciado</name>
+                            <priority>WARNING</priority>
+                            <description>Uptime is less than 10 minutes</description>
+                            <manual_close>YES</manual_close>
+                            <tags>
+                                <tag>
+                                    <tag>scope</tag>
+                                    <value>notice</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>b9ac28a29bd64caeb8e11b23d205bada</uuid>
+                    <name>CPU Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.9.9.109.1.1.1.1.5]</snmp_oid>
+                    <key>cpu.discovery</key>
+                    <delay>1h</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <description>If your IOS device has several CPUs, you must use CISCO-PROCESS-MIB and its object cpmCPUTotal5minRev from the table called cpmCPUTotalTable,
+indexed with cpmCPUTotalIndex.
+This table allows CISCO-PROCESS-MIB to keep CPU statistics for different physical entities in the router,
+like different CPU chips, group of CPUs, or CPUs in different modules/cards.
+In case of a single CPU, cpmCPUTotalTable has only one entry.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>ae16ccd4948d4d218c66e15cea04afa8</uuid>
+                            <name>Utizacao de CPU - #{#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.109.1.1.1.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>system.cpu.util[cpmCPUTotal5minRev.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <description>MIB: CISCO-PROCESS-MIB
+The cpmCPUTotal5minRev MIB object provides a more accurate view of the performance of the router over time than the MIB objects cpmCPUTotal1minRev and cpmCPUTotal5secRev . These MIB objects are not accurate because they look at CPU at one minute and five second intervals, respectively. These MIBs enable you to monitor the trends and plan the capacity of your network. The recommended baseline rising threshold for cpmCPUTotal5minRev is 90 percent. Depending on the platform, some routers that run at 90 percent, for example, 2500s, can exhibit performance degradation versus a high-end router, for example, the 7500 series, which can operate fine.
+Reference: http://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/15215-collect-cpu-util-snmp.html</description>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>e56feed805724e15acc18e010c131fe1</uuid>
+                                    <expression>min(/Monitoramento - Cisco IOS/system.cpu.util[cpmCPUTotal5minRev.{#SNMPINDEX}],5m)&gt;{$CPU.UTIL.CRIT}</expression>
+                                    <name>Alta utilizacao da CPU #{#SNMPINDEX}:  (&gt; {$CPU.UTIL.CRIT}% por 5m)</name>
+                                    <opdata>Current utilization: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                    <description>CPU utilization is too high. The system might be slow to respond.</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>4ddb22d7dc654922900c444e7da2085d</uuid>
+                            <name>#{#SNMPINDEX}: CPU utilization</name>
+                            <ymin_type_1>FIXED</ymin_type_1>
+                            <ymax_type_1>FIXED</ymax_type_1>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Monitoramento - Cisco IOS</host>
+                                        <key>system.cpu.util[cpmCPUTotal5minRev.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>946841318d434269a9a7e78c45a1067a</uuid>
+                    <name>FAN Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SENSOR_INFO},1.3.6.1.4.1.9.9.13.1.4.1.2]</snmp_oid>
+                    <key>fan.discovery</key>
+                    <delay>1h</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <description>The table of fan status maintained by the environmental monitor.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>1db068df56244c628c1bda472a9d3d59</uuid>
+                            <name>Stats da Ventoinha - {#SENSOR_INFO}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.13.1.4.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>sensor.fan.status[ciscoEnvMonFanState.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2w</history>
+                            <trends>0</trends>
+                            <description>MIB: CISCO-ENVMON-MIB</description>
+                            <valuemap>
+                                <name>CISCO-ENVMON-MIB::CiscoEnvMonState</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>539cc4b6198b4e6990bcc1c5fd12a3bb</uuid>
+                                    <expression>count(/Monitoramento - Cisco IOS/sensor.fan.status[ciscoEnvMonFanState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$FAN_CRIT_STATUS:\&quot;critical\&quot;}&quot;)=1 or count(/Monitoramento - Cisco IOS/sensor.fan.status[ciscoEnvMonFanState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$FAN_CRIT_STATUS:\&quot;shutdown\&quot;}&quot;)=1</expression>
+                                    <name>A ventoinha está em estado crítico - {#SENSOR_INFO}</name>
+                                    <opdata>Current state: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>AVERAGE</priority>
+                                    <description>Please check the fan unit</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>844fb5003c184cc999c4f4dc3c37fc2e</uuid>
+                                    <expression>count(/Monitoramento - Cisco IOS/sensor.fan.status[ciscoEnvMonFanState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$FAN_WARN_STATUS:\&quot;warning\&quot;}&quot;)=1 or count(/Monitoramento - Cisco IOS/sensor.fan.status[ciscoEnvMonFanState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$FAN_WARN_STATUS:\&quot;notFunctioning\&quot;}&quot;)=1</expression>
+                                    <name>A ventoinha está em estado de alerta - {#SENSOR_INFO}</name>
+                                    <opdata>Current state: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                    <description>Please check the fan unit</description>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>A ventoinha está em estado crítico - {#SENSOR_INFO}</name>
+                                            <expression>count(/Monitoramento - Cisco IOS/sensor.fan.status[ciscoEnvMonFanState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$FAN_CRIT_STATUS:\&quot;critical\&quot;}&quot;)=1 or count(/Monitoramento - Cisco IOS/sensor.fan.status[ciscoEnvMonFanState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$FAN_CRIT_STATUS:\&quot;shutdown\&quot;}&quot;)=1</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>236c3d76cd9249c998e988b409c94958</uuid>
+                    <name>Memory Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.9.9.48.1.1.1.2]</snmp_oid>
+                    <key>memory.discovery</key>
+                    <delay>1h</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <description>Discovery of ciscoMemoryPoolTable, a table of memory pool monitoring entries.
+http://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/15216-contiguous-memory.html</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>c5a0d80ee1604caba5c95229ab7938fc</uuid>
+                            <name>Memoria Disponivel - {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.48.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>vm.memory.free[ciscoMemoryPoolFree.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <units>B</units>
+                            <description>MIB: CISCO-MEMORY-POOL-MIB
+Indicates the number of bytes from the memory pool that are currently unused on the managed device. Note that the sum of ciscoMemoryPoolUsed and ciscoMemoryPoolFree is the total amount of memory in the pool
+Reference: http://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/15216-contiguous-memory.html</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>176253f369d74964ab5c5b4b97a9784c</uuid>
+                            <name>Memoria Utilizada - {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.48.1.1.1.5.{#SNMPINDEX}</snmp_oid>
+                            <key>vm.memory.used[ciscoMemoryPoolUsed.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <units>B</units>
+                            <description>MIB: CISCO-MEMORY-POOL-MIB
+Indicates the number of bytes from the memory pool that are currently in use by applications on the managed device.
+Reference: http://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/15216-contiguous-memory.html</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>3f0cc4fc1de04c87bb604729b9c1a377</uuid>
+                            <name>Utilizacao da memoria - {#SNMPVALUE}</name>
+                            <type>CALCULATED</type>
+                            <key>vm.memory.util[vm.memory.util.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <params>last(//vm.memory.used[ciscoMemoryPoolUsed.{#SNMPINDEX}])/(last(//vm.memory.free[ciscoMemoryPoolFree.{#SNMPINDEX}])+last(//vm.memory.used[ciscoMemoryPoolUsed.{#SNMPINDEX}]))*100</params>
+                            <description>Memory utilization in %</description>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>b72f4419d40540fda83116bae795621d</uuid>
+                                    <expression>min(/Monitoramento - Cisco IOS/vm.memory.util[vm.memory.util.{#SNMPINDEX}],5m)&gt;{$MEMORY.UTIL.MAX}</expression>
+                                    <name>Alta utilização de memória: {#SNMPVALUE} (&gt; {$MEMORY.UTIL.MAX}% por 5m)</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>The system is running out of free memory.</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>f7620541b3c54ea6b546c7d3a8e06588</uuid>
+                            <name>{#SNMPVALUE}: Memory utilization</name>
+                            <ymin_type_1>FIXED</ymin_type_1>
+                            <ymax_type_1>FIXED</ymax_type_1>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Monitoramento - Cisco IOS</host>
+                                        <key>vm.memory.util[vm.memory.util.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>d15526fe10e44d3498d1297bf1bcfefb</uuid>
+                    <name>Network interfaces discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFOPERSTATUS},1.3.6.1.2.1.2.2.1.8,{#IFADMINSTATUS},1.3.6.1.2.1.2.2.1.7,{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18,{#IFNAME},1.3.6.1.2.1.31.1.1.1.1,{#IFDESCR},1.3.6.1.2.1.2.2.1.2,{#IFTYPE},1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>net.if.discovery</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <evaltype>AND</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFADMINSTATUS}</macro>
+                                <value>{$NET.IF.IFADMINSTATUS.MATCHES}</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFADMINSTATUS}</macro>
+                                <value>{$NET.IF.IFADMINSTATUS.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>B</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFALIAS}</macro>
+                                <value>{$NET.IF.IFALIAS.MATCHES}</value>
+                                <formulaid>C</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFALIAS}</macro>
+                                <value>{$NET.IF.IFALIAS.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>D</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFDESCR}</macro>
+                                <value>{$NET.IF.IFDESCR.MATCHES}</value>
+                                <formulaid>E</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFDESCR}</macro>
+                                <value>{$NET.IF.IFDESCR.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>F</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>{$NET.IF.IFNAME.MATCHES}</value>
+                                <formulaid>G</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>^Vi.*\..*</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>H</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFNAME}</macro>
+                                <value>{$NET.IF.IFNAME.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>I</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFOPERSTATUS}</macro>
+                                <value>{$NET.IF.IFOPERSTATUS.MATCHES}</value>
+                                <formulaid>J</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFOPERSTATUS}</macro>
+                                <value>{$NET.IF.IFOPERSTATUS.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>K</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFTYPE}</macro>
+                                <value>{$NET.IF.IFTYPE.MATCHES}</value>
+                                <formulaid>L</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFTYPE}</macro>
+                                <value>{$NET.IF.IFTYPE.NOT_MATCHES}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>M</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <description>Discovering interfaces from IF-MIB.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>eeca109f4eb04536a18cce5532c0b87d</uuid>
+                            <name>Status Operacional {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>if.net.opstatus[{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <description>MIB: IF-MIB
+The current operational state of the interface.
+- The testing(3) state indicates that no operational packet scan be passed
+- If ifAdminStatus is down(2) then ifOperStatus should be down(2)
+- If ifAdminStatus is changed to up(1) then ifOperStatus should change to up(1) if the interface is ready to transmit and receive network traffic
+- It should change todormant(5) if the interface is waiting for external actions (such as a serial line waiting for an incoming connection)
+- It should remain in the down(2) state if and only if there is a fault that prevents it from going to the up(1) state
+- It should remain in the notPresent(6) state if the interface has missing(typically, hardware) components.</description>
+                            <valuemap>
+                                <name>IF-MIB::ifOperStatus</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>95440eb6b14246aebdcc883b19454eb8</uuid>
+                                    <expression>{$IFCONTROL:&quot;{#IFNAME}&quot;}=1 and last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}])=2 and (last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}],#1)&lt;&gt;last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}],#2))</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}])&lt;&gt;2 or {$IFCONTROL:&quot;{#IFNAME}&quot;}=0</recovery_expression>
+                                    <name>Interface {#IFNAME}({#IFALIAS}): Link down</name>
+                                    <opdata>Current state: {ITEM.LASTVALUE1}</opdata>
+                                    <status>DISABLED</status>
+                                    <discover>NO_DISCOVER</discover>
+                                    <priority>AVERAGE</priority>
+                                    <description>This trigger expression works as follows:
+1. Can be triggered if operations status is down.
+2. {$IFCONTROL:&quot;{#IFNAME}&quot;}=1 - user can redefine Context macro to value - 0. That marks this interface as not important. No new trigger will be fired if this interface is down.
+3. {TEMPLATE_NAME:METRIC.diff()}=1) - trigger fires only if operational status was up(1) sometime before. (So, do not fire 'ethernal off' interfaces.)
+
+WARNING: if closed manually - won't fire again on next poll, because of .diff.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>scope</tag>
+                                            <value>availability</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>2fe8838e2d40407faa8bc8d4ee76b58e</uuid>
+                                    <expression>last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}])=2</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}])=1</recovery_expression>
+                                    <name>Mudança de Status Operacional na {#IFNAME} - {#IFALIAS}</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>86644a9819d34d069ccf94243c32e2de</uuid>
+                            <name>Alias - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.1.{#SNMPINDEX}</snmp_oid>
+                            <key>ifAlias[{#IFNAME}]</key>
+                            <delay>1h</delay>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>af05dafa18034633be7f990e3c91f9d8</uuid>
+                            <name>Description {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.18.{#SNMPINDEX}</snmp_oid>
+                            <key>ifDescr[{#IFNAME}]</key>
+                            <delay>1h</delay>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>b6e8c9a3a7fb42b19c4df24fe0d7f058</uuid>
+                            <name>Status Administrativo {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.admstatus[{#IFNAME}]</key>
+                            <delay>30m</delay>
+                            <description>MIB: IF-MIB
+The current operational state of the interface.
+- The testing(3) state indicates that no operational packet scan be passed
+- If ifAdminStatus is down(2) then ifOperStatus should be down(2)
+- If ifAdminStatus is changed to up(1) then ifOperStatus should change to up(1) if the interface is ready to transmit and receive network traffic
+- It should change todormant(5) if the interface is waiting for external actions (such as a serial line waiting for an incoming connection)
+- It should remain in the down(2) state if and only if there is a fault that prevents it from going to the up(1) state
+- It should remain in the notPresent(6) state if the interface has missing(typically, hardware) components.</description>
+                            <valuemap>
+                                <name>IF-MIB::ifOperStatus</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>768ad776360b422695ee586e2329834c</uuid>
+                                    <expression>last(/Monitoramento - Cisco IOS/net.if.admstatus[{#IFNAME}])=2</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/Monitoramento - Cisco IOS/net.if.admstatus[{#IFNAME}])=1</recovery_expression>
+                                    <name>Mudança de Status Administrativo na {#IFNAME} - {#IFALIAS}</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>970d2a89759847cc89d4de96ea9bdfef</uuid>
+                            <name>Pacotes recebidos descartados - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.13.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in.discards[ifInDiscards.{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <description>MIB: IF-MIB
+The number of inbound packets which were chosen to be discarded
+even though no errors had been detected to prevent their being deliverable to a higher-layer protocol.
+One possible reason for discarding such a packet could be to free up buffer space.
+Discontinuities in the value of this counter can occur at re-initialization of the management system,
+and at other times as indicated by the value of ifCounterDiscontinuityTime.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>22dfe9e6d4f64aa78cc31d190f70b2dc</uuid>
+                            <name>Pacotes recebidos com erros - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in.errors[ifInErrors.{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <description>MIB: IF-MIB
+For packet-oriented interfaces, the number of inbound packets that contained errors preventing them from being deliverable to a higher-layer protocol.  For character-oriented or fixed-length interfaces, the number of inbound transmission units that contained errors preventing them from being deliverable to a higher-layer protocol. Discontinuities in the value of this counter can occur at re-initialization of the management system, and at other times as indicated by the value of ifCounterDiscontinuityTime.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>488161c9203d4b409807e579a5f846d5</uuid>
+                            <name>Trafego Recebido - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in[ifHCInOctets.{#IFNAME}]</key>
+                            <history>365d</history>
+                            <trends>730d</trends>
+                            <units>bps</units>
+                            <description>MIB: IF-MIB
+The total number of octets received on the interface, including framing characters. This object is a 64-bit version of ifInOctets. Discontinuities in the value of this counter can occur at re-initialization of the management system, and at other times as indicated by the value of ifCounterDiscontinuityTime.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>63c4842ecf4f40b79f82deb7a18689b3</uuid>
+                            <name>Pacotes enviados descartados - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.19.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out.discards[ifOutDiscards.{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <description>MIB: IF-MIB
+The number of outbound packets which were chosen to be discarded
+even though no errors had been detected to prevent their being deliverable to a higher-layer protocol.
+One possible reason for discarding such a packet could be to free up buffer space.
+Discontinuities in the value of this counter can occur at re-initialization of the management system,
+and at other times as indicated by the value of ifCounterDiscontinuityTime.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>ebeb18e217b94a3da302c6028bba2fdd</uuid>
+                            <name>Pacotes enviados com erros - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out.errors[ifOutErrors.{#IFNAME}]</key>
+                            <delay>3m</delay>
+                            <history>7d</history>
+                            <description>MIB: IF-MIB
+For packet-oriented interfaces, the number of outbound packets that contained errors preventing them from being deliverable to a higher-layer protocol.  For character-oriented or fixed-length interfaces, the number of outbound transmission units that contained errors preventing them from being deliverable to a higher-layer protocol. Discontinuities in the value of this counter can occur at re-initialization of the management system, and at other times as indicated by the value of ifCounterDiscontinuityTime.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>fadb3025c8c4461595c52ae2b624a5cd</uuid>
+                            <name>Trafego Enviado - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out[ifHCOutOctets.{#IFNAME}]</key>
+                            <history>365d</history>
+                            <trends>730d</trends>
+                            <units>bps</units>
+                            <description>MIB: IF-MIB
+The total number of octets transmitted out of the interface, including framing characters. This object is a 64-bit version of ifOutOctets.Discontinuities in the value of this counter can occur at re-initialization of the management system, and at other times as indicated by the value of ifCounterDiscontinuityTime.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>df13d772871442bbb1a10c18bebd40bb</uuid>
+                            <name>Modulação {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.15.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.speed[ifHighSpeed.{#IFNAME}]</key>
+                            <delay>10m</delay>
+                            <units>bps</units>
+                            <description>MIB: IF-MIB
+An estimate of the interface's current bandwidth in units of 1,000,000 bits per second. If this object reports a value of `n' then the speed of the interface is somewhere in the range of `n-500,000' to`n+499,999'.  For interfaces which do not vary in bandwidth or for those where no accurate estimation can be made, this object should contain the nominal bandwidth. For a sub-layer which has no concept of bandwidth, this object should be zero.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1000000</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>1h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>47083361db9d48f19ba0257b18ff4c46</uuid>
+                                    <expression>abs(change(/Monitoramento - Cisco IOS/net.if.speed[ifHighSpeed.{#IFNAME}]))&lt;&gt;0</expression>
+                                    <name>Mudança de Modulação na {#IFNAME} - {#IFALIAS}</name>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>53185245c6e448a9836a2cec14e52594</uuid>
+                            <name>Tipo de interface - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.type[ifType.{#IFNAME}]</key>
+                            <delay>1h</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <description>MIB: IF-MIB
+The type of interface.
+Additional values for ifType are assigned by the Internet Assigned NumbersAuthority (IANA),
+through updating the syntax of the IANAifType textual convention.</description>
+                            <valuemap>
+                                <name>IF-MIB::ifType</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>1d</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <uuid>08dcf7e3c43849ed9dbe635bf1d38620</uuid>
+                            <expression>(avg(/Monitoramento - Cisco IOS/net.if.in[ifHCInOctets.{#IFNAME}],15m)&gt;({$IF.UTIL.MAX:&quot;{#IFNAME}&quot;}/100)*last(/Monitoramento - Cisco IOS/net.if.speed[ifHighSpeed.{#IFNAME}]) or
+avg(/Monitoramento - Cisco IOS/net.if.out[ifHCOutOctets.{#IFNAME}],15m)&gt;({$IF.UTIL.MAX:&quot;{#IFNAME}&quot;}/100)*last(/Monitoramento - Cisco IOS/net.if.speed[ifHighSpeed.{#IFNAME}])) and
+last(/Monitoramento - Cisco IOS/net.if.speed[ifHighSpeed.{#IFNAME}])&gt;0</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>avg(/Monitoramento - Cisco IOS/net.if.in[ifHCInOctets.{#IFNAME}],15m)&lt;(({$IF.UTIL.MAX:&quot;{#IFNAME}&quot;}-3)/100)*last(/Monitoramento - Cisco IOS/net.if.speed[ifHighSpeed.{#IFNAME}]) and
+avg(/Monitoramento - Cisco IOS/net.if.out[ifHCOutOctets.{#IFNAME}],15m)&lt;(({$IF.UTIL.MAX:&quot;{#IFNAME}&quot;}-3)/100)*last(/Monitoramento - Cisco IOS/net.if.speed[ifHighSpeed.{#IFNAME}])</recovery_expression>
+                            <name>Interface {#IFNAME}({#IFALIAS}): High bandwidth usage (&gt;{$IF.UTIL.MAX:&quot;{#IFNAME}&quot;}%)</name>
+                            <opdata>In: {ITEM.LASTVALUE1}, out: {ITEM.LASTVALUE3}, speed: {ITEM.LASTVALUE2}</opdata>
+                            <status>DISABLED</status>
+                            <discover>NO_DISCOVER</discover>
+                            <priority>WARNING</priority>
+                            <description>The network interface utilization is close to its estimated maximum bandwidth.</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>Interface {#IFNAME}({#IFALIAS}): Link down</name>
+                                    <expression>{$IFCONTROL:&quot;{#IFNAME}&quot;}=1 and last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}])=2 and (last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}],#1)&lt;&gt;last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}],#2))</expression>
+                                    <recovery_expression>last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}])&lt;&gt;2 or {$IFCONTROL:&quot;{#IFNAME}&quot;}=0</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>scope</tag>
+                                    <value>performance</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <uuid>a1e18664fa24413abbd1fafc3437603c</uuid>
+                            <expression>min(/Monitoramento - Cisco IOS/net.if.in.errors[ifInErrors.{#IFNAME}],5m)&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}
+or min(/Monitoramento - Cisco IOS/net.if.out.errors[ifOutErrors.{#IFNAME}],5m)&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>max(/Monitoramento - Cisco IOS/net.if.in.errors[ifInErrors.{#IFNAME}],5m)&lt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}*0.8
+and max(/Monitoramento - Cisco IOS/net.if.out.errors[ifOutErrors.{#IFNAME}],5m)&lt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;}*0.8</recovery_expression>
+                            <name>Interface {#IFNAME}({#IFALIAS}): High error rate (&gt;{$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} for 5m)</name>
+                            <opdata>errors in: {ITEM.LASTVALUE1}, errors out: {ITEM.LASTVALUE2}</opdata>
+                            <status>DISABLED</status>
+                            <discover>NO_DISCOVER</discover>
+                            <priority>WARNING</priority>
+                            <description>Recovers when below 80% of {$IF.ERRORS.WARN:&quot;{#IFNAME}&quot;} threshold</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>Interface {#IFNAME}({#IFALIAS}): Link down</name>
+                                    <expression>{$IFCONTROL:&quot;{#IFNAME}&quot;}=1 and last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}])=2 and (last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}],#1)&lt;&gt;last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}],#2))</expression>
+                                    <recovery_expression>last(/Monitoramento - Cisco IOS/if.net.opstatus[{#IFNAME}])&lt;&gt;2 or {$IFCONTROL:&quot;{#IFNAME}&quot;}=0</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>scope</tag>
+                                    <value>availability</value>
+                                </tag>
+                                <tag>
+                                    <tag>scope</tag>
+                                    <value>performance</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>3cd7909fcffc413e97672f924f7ac1ab</uuid>
+                            <name>Interface {#IFNAME}({#IFALIAS}): Network traffic</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Monitoramento - Cisco IOS</host>
+                                        <key>net.if.in[ifHCInOctets.{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>BOLD_LINE</drawtype>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>Monitoramento - Cisco IOS</host>
+                                        <key>net.if.out[ifHCOutOctets.{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>F63100</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Monitoramento - Cisco IOS</host>
+                                        <key>net.if.out.errors[ifOutErrors.{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>A54F10</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Monitoramento - Cisco IOS</host>
+                                        <key>net.if.in.errors[ifInErrors.{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>4</sortorder>
+                                    <color>FC6EA3</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Monitoramento - Cisco IOS</host>
+                                        <key>net.if.out.discards[ifOutDiscards.{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>5</sortorder>
+                                    <color>6C59DC</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Monitoramento - Cisco IOS</host>
+                                        <key>net.if.in.discards[ifInDiscards.{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>3559028a43a042b99f4720fd5d195378</uuid>
+                    <name>PSU Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SENSOR_INFO},1.3.6.1.4.1.9.9.13.1.5.1.2]</snmp_oid>
+                    <key>psu.discovery</key>
+                    <delay>1h</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <description>The table of power supply status maintained by the environmental monitor card.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>52bfc5dcf5a54ca6b11cfd9ce539e2a2</uuid>
+                            <name>Status da fonte de alimentação - {#SENSOR_INFO}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.13.1.5.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>sensor.psu.status[ciscoEnvMonSupplyState.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2w</history>
+                            <trends>0</trends>
+                            <description>MIB: CISCO-ENVMON-MIB</description>
+                            <valuemap>
+                                <name>CISCO-ENVMON-MIB::CiscoEnvMonState</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>ea323a6a00af4458975da22d1e02a6bb</uuid>
+                                    <expression>count(/Monitoramento - Cisco IOS/sensor.psu.status[ciscoEnvMonSupplyState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$PSU_CRIT_STATUS:\&quot;critical\&quot;}&quot;)=1 or count(/Monitoramento - Cisco IOS/sensor.psu.status[ciscoEnvMonSupplyState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$PSU_CRIT_STATUS:\&quot;shutdown\&quot;}&quot;)=1</expression>
+                                    <name>A fonte de alimentação está em estado crítico - {#SENSOR_INFO}</name>
+                                    <opdata>Current state: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>AVERAGE</priority>
+                                    <description>Please check the power supply unit for errors</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>2f2d4e6704e44eaf830e59d52bd66933</uuid>
+                                    <expression>count(/Monitoramento - Cisco IOS/sensor.psu.status[ciscoEnvMonSupplyState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$PSU_WARN_STATUS:\&quot;warning\&quot;}&quot;)=1 or count(/Monitoramento - Cisco IOS/sensor.psu.status[ciscoEnvMonSupplyState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$PSU_WARN_STATUS:\&quot;notFunctioning\&quot;}&quot;)=1</expression>
+                                    <name>A fonte de alimentação está em estado de alerta - {#SENSOR_INFO}</name>
+                                    <opdata>Current state: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>WARNING</priority>
+                                    <description>Please check the power supply unit for errors</description>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>A fonte de alimentação está em estado crítico - {#SENSOR_INFO}</name>
+                                            <expression>count(/Monitoramento - Cisco IOS/sensor.psu.status[ciscoEnvMonSupplyState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$PSU_CRIT_STATUS:\&quot;critical\&quot;}&quot;)=1 or count(/Monitoramento - Cisco IOS/sensor.psu.status[ciscoEnvMonSupplyState.{#SNMPINDEX}],#1,&quot;eq&quot;,&quot;{$PSU_CRIT_STATUS:\&quot;shutdown\&quot;}&quot;)=1</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>b86249f5cdbb46c895b5ab0d5b3d2b9d</uuid>
+                    <name>Temperature Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.4.1.9.9.13.1.3.1.2]</snmp_oid>
+                    <key>temperature.discovery</key>
+                    <delay>1h</delay>
+                    <lifetime>30d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <description>Discovery of ciscoEnvMonTemperatureTable (ciscoEnvMonTemperatureDescr), a table of ambient temperature status
+maintained by the environmental monitor.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>bda43883762d47849816393c9805eb00</uuid>
+                            <name>Status da temperatura - {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.13.1.3.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>sensor.temp.status[ciscoEnvMonTemperatureState.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>2w</history>
+                            <trends>0</trends>
+                            <description>MIB: CISCO-ENVMON-MIB
+The current state of the test point being instrumented.</description>
+                            <valuemap>
+                                <name>CISCO-ENVMON-MIB::CiscoEnvMonState</name>
+                            </valuemap>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>df56c725a1d24e4980c0a357c7116c8d</uuid>
+                            <name>Temperatura - {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.13.1.3.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>°C</units>
+                            <description>MIB: CISCO-ENVMON-MIB
+The current measurement of the test point being instrumented.</description>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>db7af14a55d245d0b5f13c1d247fa051</uuid>
+                                    <expression>avg(/Monitoramento - Cisco IOS/sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}],5m)&lt;{$TEMP_CRIT_LOW:&quot;{#SNMPVALUE}&quot;}</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>min(/Monitoramento - Cisco IOS/sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}],5m)&gt;{$TEMP_CRIT_LOW:&quot;{#SNMPVALUE}&quot;}+3</recovery_expression>
+                                    <name>Temperatura muito baixa: &lt; {$TEMP_CRIT_LOW:&quot;{#SNMPVALUE}&quot;} - {#SNMPVALUE}</name>
+                                    <opdata>Current value: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <uuid>7b41a4d141df431cb7f4308f812b6670</uuid>
+                            <expression>avg(/Monitoramento - Cisco IOS/sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}],5m)&gt;{$TEMP_CRIT:&quot;{#SNMPVALUE}&quot;}
+or
+last(/Monitoramento - Cisco IOS/sensor.temp.status[ciscoEnvMonTemperatureState.{#SNMPINDEX}])={$TEMP_CRIT_STATUS}
+or
+last(/Monitoramento - Cisco IOS/sensor.temp.status[ciscoEnvMonTemperatureState.{#SNMPINDEX}])={$TEMP_DISASTER_STATUS}</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>max(/Monitoramento - Cisco IOS/sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}],5m)&lt;{$TEMP_CRIT:&quot;{#SNMPVALUE}&quot;}-3</recovery_expression>
+                            <name>Temperatura acima de {$TEMP_CRIT:&quot;{#SNMPVALUE}&quot;} - {#SNMPVALUE}</name>
+                            <opdata>Current value: {ITEM.LASTVALUE1}</opdata>
+                            <priority>HIGH</priority>
+                            <description>This trigger uses temperature sensor values as well as temperature sensor status if available</description>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <uuid>7c2cc3d9eab84fcd93a4bb7d28f2ccaa</uuid>
+                            <expression>avg(/Monitoramento - Cisco IOS/sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}],5m)&gt;{$TEMP_WARN:&quot;{#SNMPVALUE}&quot;}
+or
+last(/Monitoramento - Cisco IOS/sensor.temp.status[ciscoEnvMonTemperatureState.{#SNMPINDEX}])={$TEMP_WARN_STATUS}</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>max(/Monitoramento - Cisco IOS/sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}],5m)&lt;{$TEMP_WARN:&quot;{#SNMPVALUE}&quot;}-3</recovery_expression>
+                            <name>Temperatura acima de {$TEMP_WARN:&quot;{#SNMPVALUE}&quot;} - {#SNMPVALUE}</name>
+                            <opdata>Current value: {ITEM.LASTVALUE1}</opdata>
+                            <priority>WARNING</priority>
+                            <description>This trigger uses temperature sensor values as well as temperature sensor status if available</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>Temperatura acima de {$TEMP_CRIT:&quot;{#SNMPVALUE}&quot;} - {#SNMPVALUE}</name>
+                                    <expression>avg(/Monitoramento - Cisco IOS/sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}],5m)&gt;{$TEMP_CRIT:&quot;{#SNMPVALUE}&quot;}
+or
+last(/Monitoramento - Cisco IOS/sensor.temp.status[ciscoEnvMonTemperatureState.{#SNMPINDEX}])={$TEMP_CRIT_STATUS}
+or
+last(/Monitoramento - Cisco IOS/sensor.temp.status[ciscoEnvMonTemperatureState.{#SNMPINDEX}])={$TEMP_DISASTER_STATUS}</expression>
+                                    <recovery_expression>max(/Monitoramento - Cisco IOS/sensor.temp.value[ciscoEnvMonTemperatureValue.{#SNMPINDEX}],5m)&lt;{$TEMP_CRIT:&quot;{#SNMPVALUE}&quot;}-3</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$CPU.UTIL.CRIT}</macro>
+                    <value>90</value>
+                </macro>
+                <macro>
+                    <macro>{$FAN_CRIT_STATUS:&quot;critical&quot;}</macro>
+                    <value>3</value>
+                </macro>
+                <macro>
+                    <macro>{$FAN_CRIT_STATUS:&quot;shutdown&quot;}</macro>
+                    <value>4</value>
+                </macro>
+                <macro>
+                    <macro>{$FAN_WARN_STATUS:&quot;notFunctioning&quot;}</macro>
+                    <value>6</value>
+                </macro>
+                <macro>
+                    <macro>{$FAN_WARN_STATUS:&quot;warning&quot;}</macro>
+                    <value>2</value>
+                </macro>
+                <macro>
+                    <macro>{$ICMP_LOSS_WARN}</macro>
+                    <value>20</value>
+                </macro>
+                <macro>
+                    <macro>{$ICMP_RESPONSE_TIME_WARN}</macro>
+                    <value>0.15</value>
+                </macro>
+                <macro>
+                    <macro>{$IF.ERRORS.WARN}</macro>
+                    <value>2</value>
+                </macro>
+                <macro>
+                    <macro>{$IF.UTIL.MAX}</macro>
+                    <value>90</value>
+                </macro>
+                <macro>
+                    <macro>{$IFCONTROL}</macro>
+                    <value>1</value>
+                </macro>
+                <macro>
+                    <macro>{$MEMORY.UTIL.MAX}</macro>
+                    <value>90</value>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFADMINSTATUS.MATCHES}</macro>
+                    <value>^.*</value>
+                    <description>Ignore notPresent(6)</description>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFADMINSTATUS.NOT_MATCHES}</macro>
+                    <value>^2$</value>
+                    <description>Ignore down(2) administrative status</description>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFALIAS.MATCHES}</macro>
+                    <value>.*</value>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFALIAS.NOT_MATCHES}</macro>
+                    <value>CHANGE_IF_NEEDED</value>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFDESCR.MATCHES}</macro>
+                    <value>.*</value>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFDESCR.NOT_MATCHES}</macro>
+                    <value>CHANGE_IF_NEEDED</value>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFNAME.MATCHES}</macro>
+                    <value>^.*$</value>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFNAME.NOT_MATCHES}</macro>
+                    <value>(^Software Loopback Interface|^NULL[0-9.]*$|^[Ll]o[0-9.]*$|^[Ss]ystem$|^Nu[0-9.]*$|^veth[0-9a-z]+$|docker[0-9]+|br-[a-z0-9]{12})</value>
+                    <description>Filter out loopbacks, nulls, docker veth links and docker0 bridge by default</description>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFOPERSTATUS.MATCHES}</macro>
+                    <value>^.*$</value>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFOPERSTATUS.NOT_MATCHES}</macro>
+                    <value>^6$</value>
+                    <description>Ignore notPresent(6)</description>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFTYPE.MATCHES}</macro>
+                    <value>.*</value>
+                </macro>
+                <macro>
+                    <macro>{$NET.IF.IFTYPE.NOT_MATCHES}</macro>
+                    <value>CHANGE_IF_NEEDED</value>
+                </macro>
+                <macro>
+                    <macro>{$PSU_CRIT_STATUS:&quot;critical&quot;}</macro>
+                    <value>3</value>
+                </macro>
+                <macro>
+                    <macro>{$PSU_CRIT_STATUS:&quot;shutdown&quot;}</macro>
+                    <value>4</value>
+                </macro>
+                <macro>
+                    <macro>{$PSU_WARN_STATUS:&quot;notFunctioning&quot;}</macro>
+                    <value>6</value>
+                </macro>
+                <macro>
+                    <macro>{$PSU_WARN_STATUS:&quot;warning&quot;}</macro>
+                    <value>2</value>
+                </macro>
+                <macro>
+                    <macro>{$SNMP.TIMEOUT}</macro>
+                    <value>5m</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_CRIT}</macro>
+                    <value>60</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_CRIT:&quot;CPU&quot;}</macro>
+                    <value>75</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_CRIT_LOW}</macro>
+                    <value>5</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_CRIT_STATUS}</macro>
+                    <value>3</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_DISASTER_STATUS}</macro>
+                    <value>4</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_WARN}</macro>
+                    <value>50</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_WARN:&quot;CPU&quot;}</macro>
+                    <value>70</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_WARN_STATUS}</macro>
+                    <value>2</value>
+                </macro>
+            </macros>
+            <valuemaps>
+                <valuemap>
+                    <uuid>8cb94cf375e0468e923dce683621f44a</uuid>
+                    <name>CISCO-ENVMON-MIB::CiscoEnvMonState</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>normal</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>warning</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>critical</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>shutdown</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>notPresent</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>notFunctioning</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>11ea8c0818d14f52951089ae1ae89e66</uuid>
+                    <name>EtherLike-MIB::dot3StatsDuplexStatus</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>unknown</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>halfDuplex</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>fullDuplex</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>ef5fc20e8cf04bd2a7e0d21eac11de23</uuid>
+                    <name>IF-MIB::ifOperStatus</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>up</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>down</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>unknown</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>dormant</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>notPresent</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>lowerLayerDown</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>ce4750b133c142058020787d7704064a</uuid>
+                    <name>IF-MIB::ifType</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>other</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>regular1822</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>hdh1822</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>ddnX25</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>rfc877x25</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>ethernetCsmacd</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>iso88023Csmacd</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>8</value>
+                            <newvalue>iso88024TokenBus</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>9</value>
+                            <newvalue>iso88025TokenRing</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>10</value>
+                            <newvalue>iso88026Man</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>11</value>
+                            <newvalue>starLan</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>12</value>
+                            <newvalue>proteon10Mbit</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>13</value>
+                            <newvalue>proteon80Mbit</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>14</value>
+                            <newvalue>hyperchannel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>15</value>
+                            <newvalue>fddi</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>16</value>
+                            <newvalue>lapb</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>17</value>
+                            <newvalue>sdlc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>18</value>
+                            <newvalue>ds1</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>19</value>
+                            <newvalue>e1</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>20</value>
+                            <newvalue>basicISDN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>21</value>
+                            <newvalue>primaryISDN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>22</value>
+                            <newvalue>propPointToPointSerial</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>23</value>
+                            <newvalue>ppp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>24</value>
+                            <newvalue>softwareLoopback</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>25</value>
+                            <newvalue>eon</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>26</value>
+                            <newvalue>ethernet3Mbit</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>27</value>
+                            <newvalue>nsip</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>28</value>
+                            <newvalue>slip</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>29</value>
+                            <newvalue>ultra</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>30</value>
+                            <newvalue>ds3</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>31</value>
+                            <newvalue>sip</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>32</value>
+                            <newvalue>frameRelay</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>33</value>
+                            <newvalue>rs232</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>34</value>
+                            <newvalue>para</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>35</value>
+                            <newvalue>arcnet</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>36</value>
+                            <newvalue>arcnetPlus</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>37</value>
+                            <newvalue>atm</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>38</value>
+                            <newvalue>miox25</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>39</value>
+                            <newvalue>sonet</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>40</value>
+                            <newvalue>x25ple</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>41</value>
+                            <newvalue>iso88022llc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>42</value>
+                            <newvalue>localTalk</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>43</value>
+                            <newvalue>smdsDxi</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>44</value>
+                            <newvalue>frameRelayService</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>45</value>
+                            <newvalue>v35</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>46</value>
+                            <newvalue>hssi</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>47</value>
+                            <newvalue>hippi</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>48</value>
+                            <newvalue>modem</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>49</value>
+                            <newvalue>aal5</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>50</value>
+                            <newvalue>sonetPath</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>51</value>
+                            <newvalue>sonetVT</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>52</value>
+                            <newvalue>smdsIcip</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>53</value>
+                            <newvalue>propVirtual</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>54</value>
+                            <newvalue>propMultiplexor</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>55</value>
+                            <newvalue>ieee80212</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>56</value>
+                            <newvalue>fibreChannel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>57</value>
+                            <newvalue>hippiInterface</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>58</value>
+                            <newvalue>frameRelayInterconnect</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>59</value>
+                            <newvalue>aflane8023</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>60</value>
+                            <newvalue>aflane8025</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>61</value>
+                            <newvalue>cctEmul</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>62</value>
+                            <newvalue>fastEther</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>63</value>
+                            <newvalue>isdn</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>64</value>
+                            <newvalue>v11</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>65</value>
+                            <newvalue>v36</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>66</value>
+                            <newvalue>g703at64k</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>67</value>
+                            <newvalue>g703at2mb</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>68</value>
+                            <newvalue>qllc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>69</value>
+                            <newvalue>fastEtherFX</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>70</value>
+                            <newvalue>channel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>71</value>
+                            <newvalue>ieee80211</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>72</value>
+                            <newvalue>ibm370parChan</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>73</value>
+                            <newvalue>escon</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>74</value>
+                            <newvalue>dlsw</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>75</value>
+                            <newvalue>isdns</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>76</value>
+                            <newvalue>isdnu</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>77</value>
+                            <newvalue>lapd</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>78</value>
+                            <newvalue>ipSwitch</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>79</value>
+                            <newvalue>rsrb</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>80</value>
+                            <newvalue>atmLogical</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>81</value>
+                            <newvalue>ds0</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>82</value>
+                            <newvalue>ds0Bundle</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>83</value>
+                            <newvalue>bsc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>84</value>
+                            <newvalue>async</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>85</value>
+                            <newvalue>cnr</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>86</value>
+                            <newvalue>iso88025Dtr</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>87</value>
+                            <newvalue>eplrs</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>88</value>
+                            <newvalue>arap</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>89</value>
+                            <newvalue>propCnls</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>90</value>
+                            <newvalue>hostPad</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>91</value>
+                            <newvalue>termPad</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>92</value>
+                            <newvalue>frameRelayMPI</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>93</value>
+                            <newvalue>x213</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>94</value>
+                            <newvalue>adsl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>95</value>
+                            <newvalue>radsl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>96</value>
+                            <newvalue>sdsl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>97</value>
+                            <newvalue>vdsl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>98</value>
+                            <newvalue>iso88025CRFPInt</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>99</value>
+                            <newvalue>myrinet</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>100</value>
+                            <newvalue>voiceEM</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>101</value>
+                            <newvalue>voiceFXO</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>102</value>
+                            <newvalue>voiceFXS</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>103</value>
+                            <newvalue>voiceEncap</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>104</value>
+                            <newvalue>voiceOverIp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>105</value>
+                            <newvalue>atmDxi</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>106</value>
+                            <newvalue>atmFuni</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>107</value>
+                            <newvalue>atmIma</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>108</value>
+                            <newvalue>pppMultilinkBundle</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>109</value>
+                            <newvalue>ipOverCdlc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>110</value>
+                            <newvalue>ipOverClaw</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>111</value>
+                            <newvalue>stackToStack</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>112</value>
+                            <newvalue>virtualIpAddress</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>113</value>
+                            <newvalue>mpc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>114</value>
+                            <newvalue>ipOverAtm</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>115</value>
+                            <newvalue>iso88025Fiber</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>116</value>
+                            <newvalue>tdlc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>117</value>
+                            <newvalue>gigabitEthernet</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>118</value>
+                            <newvalue>hdlc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>119</value>
+                            <newvalue>lapf</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>120</value>
+                            <newvalue>v37</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>121</value>
+                            <newvalue>x25mlp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>122</value>
+                            <newvalue>x25huntGroup</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>123</value>
+                            <newvalue>trasnpHdlc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>124</value>
+                            <newvalue>interleave</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>125</value>
+                            <newvalue>fast</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>126</value>
+                            <newvalue>ip</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>127</value>
+                            <newvalue>docsCableMaclayer</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>128</value>
+                            <newvalue>docsCableDownstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>129</value>
+                            <newvalue>docsCableUpstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>130</value>
+                            <newvalue>a12MppSwitch</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>131</value>
+                            <newvalue>tunnel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>132</value>
+                            <newvalue>coffee</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>133</value>
+                            <newvalue>ces</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>134</value>
+                            <newvalue>atmSubInterface</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>135</value>
+                            <newvalue>l2vlan</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>136</value>
+                            <newvalue>l3ipvlan</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>137</value>
+                            <newvalue>l3ipxvlan</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>138</value>
+                            <newvalue>digitalPowerline</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>139</value>
+                            <newvalue>mediaMailOverIp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>140</value>
+                            <newvalue>dtm</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>141</value>
+                            <newvalue>dcn</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>142</value>
+                            <newvalue>ipForward</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>143</value>
+                            <newvalue>msdsl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>144</value>
+                            <newvalue>ieee1394</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>145</value>
+                            <newvalue>if-gsn</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>146</value>
+                            <newvalue>dvbRccMacLayer</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>147</value>
+                            <newvalue>dvbRccDownstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>148</value>
+                            <newvalue>dvbRccUpstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>149</value>
+                            <newvalue>atmVirtual</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>150</value>
+                            <newvalue>mplsTunnel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>151</value>
+                            <newvalue>srp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>152</value>
+                            <newvalue>voiceOverAtm</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>153</value>
+                            <newvalue>voiceOverFrameRelay</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>154</value>
+                            <newvalue>idsl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>155</value>
+                            <newvalue>compositeLink</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>156</value>
+                            <newvalue>ss7SigLink</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>157</value>
+                            <newvalue>propWirelessP2P</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>158</value>
+                            <newvalue>frForward</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>159</value>
+                            <newvalue>rfc1483</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>160</value>
+                            <newvalue>usb</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>161</value>
+                            <newvalue>ieee8023adLag</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>162</value>
+                            <newvalue>bgppolicyaccounting</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>163</value>
+                            <newvalue>frf16MfrBundle</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>164</value>
+                            <newvalue>h323Gatekeeper</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>165</value>
+                            <newvalue>h323Proxy</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>166</value>
+                            <newvalue>mpls</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>167</value>
+                            <newvalue>mfSigLink</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>168</value>
+                            <newvalue>hdsl2</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>169</value>
+                            <newvalue>shdsl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>170</value>
+                            <newvalue>ds1FDL</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>171</value>
+                            <newvalue>pos</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>172</value>
+                            <newvalue>dvbAsiIn</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>173</value>
+                            <newvalue>dvbAsiOut</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>174</value>
+                            <newvalue>plc</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>175</value>
+                            <newvalue>nfas</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>176</value>
+                            <newvalue>tr008</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>177</value>
+                            <newvalue>gr303RDT</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>178</value>
+                            <newvalue>gr303IDT</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>179</value>
+                            <newvalue>isup</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>180</value>
+                            <newvalue>propDocsWirelessMaclayer</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>181</value>
+                            <newvalue>propDocsWirelessDownstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>182</value>
+                            <newvalue>propDocsWirelessUpstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>183</value>
+                            <newvalue>hiperlan2</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>184</value>
+                            <newvalue>propBWAp2Mp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>185</value>
+                            <newvalue>sonetOverheadChannel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>186</value>
+                            <newvalue>digitalWrapperOverheadChannel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>187</value>
+                            <newvalue>aal2</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>188</value>
+                            <newvalue>radioMAC</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>189</value>
+                            <newvalue>atmRadio</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>190</value>
+                            <newvalue>imt</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>191</value>
+                            <newvalue>mvl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>192</value>
+                            <newvalue>reachDSL</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>193</value>
+                            <newvalue>frDlciEndPt</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>194</value>
+                            <newvalue>atmVciEndPt</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>195</value>
+                            <newvalue>opticalChannel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>196</value>
+                            <newvalue>opticalTransport</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>197</value>
+                            <newvalue>propAtm</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>198</value>
+                            <newvalue>voiceOverCable</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>199</value>
+                            <newvalue>infiniband</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>200</value>
+                            <newvalue>teLink</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>201</value>
+                            <newvalue>q2931</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>202</value>
+                            <newvalue>virtualTg</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>203</value>
+                            <newvalue>sipTg</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>204</value>
+                            <newvalue>sipSig</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>205</value>
+                            <newvalue>docsCableUpstreamChannel</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>206</value>
+                            <newvalue>econet</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>207</value>
+                            <newvalue>pon155</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>208</value>
+                            <newvalue>pon622</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>209</value>
+                            <newvalue>bridge</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>210</value>
+                            <newvalue>linegroup</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>211</value>
+                            <newvalue>voiceEMFGD</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>212</value>
+                            <newvalue>voiceFGDEANA</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>213</value>
+                            <newvalue>voiceDID</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>214</value>
+                            <newvalue>mpegTransport</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>215</value>
+                            <newvalue>sixToFour</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>216</value>
+                            <newvalue>gtp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>217</value>
+                            <newvalue>pdnEtherLoop1</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>218</value>
+                            <newvalue>pdnEtherLoop2</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>219</value>
+                            <newvalue>opticalChannelGroup</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>220</value>
+                            <newvalue>homepna</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>221</value>
+                            <newvalue>gfp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>222</value>
+                            <newvalue>ciscoISLvlan</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>223</value>
+                            <newvalue>actelisMetaLOOP</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>224</value>
+                            <newvalue>fcipLink</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>225</value>
+                            <newvalue>rpr</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>226</value>
+                            <newvalue>qam</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>227</value>
+                            <newvalue>lmp</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>228</value>
+                            <newvalue>cblVectaStar</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>229</value>
+                            <newvalue>docsCableMCmtsDownstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>230</value>
+                            <newvalue>adsl2</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>231</value>
+                            <newvalue>macSecControlledIF</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>232</value>
+                            <newvalue>macSecUncontrolledIF</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>233</value>
+                            <newvalue>aviciOpticalEther</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>234</value>
+                            <newvalue>atmbond</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>235</value>
+                            <newvalue>voiceFGDOS</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>236</value>
+                            <newvalue>mocaVersion1</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>237</value>
+                            <newvalue>ieee80216WMAN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>238</value>
+                            <newvalue>adsl2plus</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>239</value>
+                            <newvalue>dvbRcsMacLayer</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>240</value>
+                            <newvalue>dvbTdm</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>241</value>
+                            <newvalue>dvbRcsTdma</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>242</value>
+                            <newvalue>x86Laps</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>243</value>
+                            <newvalue>wwanPP</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>244</value>
+                            <newvalue>wwanPP2</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>245</value>
+                            <newvalue>voiceEBS</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>246</value>
+                            <newvalue>ifPwType</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>247</value>
+                            <newvalue>ilan</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>248</value>
+                            <newvalue>pip</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>249</value>
+                            <newvalue>aluELP</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>250</value>
+                            <newvalue>gpon</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>251</value>
+                            <newvalue>vdsl2</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>252</value>
+                            <newvalue>capwapDot11Profile</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>253</value>
+                            <newvalue>capwapDot11Bss</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>254</value>
+                            <newvalue>capwapWtpVirtualRadio</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>255</value>
+                            <newvalue>bits</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>256</value>
+                            <newvalue>docsCableUpstreamRfPort</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>257</value>
+                            <newvalue>cableDownstreamRfPort</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>258</value>
+                            <newvalue>vmwareVirtualNic</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>259</value>
+                            <newvalue>ieee802154</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>260</value>
+                            <newvalue>otnOdu</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>261</value>
+                            <newvalue>otnOtu</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>262</value>
+                            <newvalue>ifVfiType</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>263</value>
+                            <newvalue>g9981</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>264</value>
+                            <newvalue>g9982</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>265</value>
+                            <newvalue>g9983</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>266</value>
+                            <newvalue>aluEpon</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>267</value>
+                            <newvalue>aluEponOnu</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>268</value>
+                            <newvalue>aluEponPhysicalUni</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>269</value>
+                            <newvalue>aluEponLogicalLink</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>270</value>
+                            <newvalue>aluGponOnu</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>271</value>
+                            <newvalue>aluGponPhysicalUni</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>272</value>
+                            <newvalue>vmwareNicTeam</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>277</value>
+                            <newvalue>docsOfdmDownstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>278</value>
+                            <newvalue>docsOfdmaUpstream</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>279</value>
+                            <newvalue>gfast</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>280</value>
+                            <newvalue>sdci</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>281</value>
+                            <newvalue>xboxWireless</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>282</value>
+                            <newvalue>fastdsl</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>283</value>
+                            <newvalue>docsCableScte55d1FwdOob</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>284</value>
+                            <newvalue>docsCableScte55d1RetOob</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>285</value>
+                            <newvalue>docsCableScte55d2DsOob</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>286</value>
+                            <newvalue>docsCableScte55d2UsOob</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>287</value>
+                            <newvalue>docsCableNdf</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>288</value>
+                            <newvalue>docsCableNdr</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>289</value>
+                            <newvalue>ptm</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>290</value>
+                            <newvalue>ghn</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>12407e8babcc4920ad6ec8124fe53153</uuid>
+                    <name>Service state</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>Down</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>Up</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>51928175f6784c11890dceb8a705acd2</uuid>
+                    <name>zabbix.host.available</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>not available</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>available</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>unknown</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+</zabbix_export>

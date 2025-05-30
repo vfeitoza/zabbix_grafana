@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.0</version>
+    <date>2022-07-19T19:25:37Z</date>
+    <media_types>
+        <media_type>
+            <name>Telegram Graph</name>
+            <type>SCRIPT</type>
+            <script_name>zbxtg.py</script_name>
+            <parameters>
+                <parameter>{ALERT.SENDTO}</parameter>
+                <parameter>{ALERT.SUBJECT}</parameter>
+                <parameter>{ALERT.MESSAGE}</parameter>
+                <parameter>--group</parameter>
+            </parameters>
+            <message_templates>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>PROBLEM</operation_mode>
+                    <subject>Subject: {{Problem}} ***Problema -  {TRIGGER.NAME} - {HOST.HOST}***</subject>
+                    <message>&gt;&gt;{HOST.HOST}&lt;&lt;
+
+Problema iniciou em {EVENT.TIME} no {EVENT.DATE}
+
+Ultimo valor: {ITEM.LASTVALUE1} ({TIME})
+
+Urgencia: {TRIGGER.SEVERITY}
+
+zbxtg;graphs
+
+zbxtg;graphs_period=7200
+
+zbxtg;itemid:{ITEM.ID1}
+
+zbxtg;title:{HOST.HOST} - {TRIGGER.NAME}
+
+</message>
+                </message_template>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>RECOVERY</operation_mode>
+                    <subject>Subject: {{OK}} ***RESOLVIDO -  {TRIGGER.NAME} - {HOST.HOST}***</subject>
+                    <message>&gt;&gt;{HOST.HOST}&lt;&lt;
+
+Ultimo valor:: {ITEM.LASTVALUE1} ({TIME})
+
+Urgencia: {TRIGGER.SEVERITY}
+
+zbxtg;graphs
+
+zbxtg;graphs_period=10800
+
+zbxtg;itemid:{ITEM.ID1}
+
+zbxtg;title:{HOST.HOST} - {TRIGGER.NAME}</message>
+                </message_template>
+                <message_template>
+                    <event_source>TRIGGERS</event_source>
+                    <operation_mode>UPDATE</operation_mode>
+                    <subject>Subject: Updated problem: {EVENT.NAME}</subject>
+                    <message>{USER.FULLNAME} {EVENT.UPDATE.ACTION} problem at {EVENT.UPDATE.DATE} {EVENT.UPDATE.TIME}.
+
+{EVENT.UPDATE.MESSAGE}
+
+
+
+Current problem status is {EVENT.STATUS}, acknowledged: {EVENT.ACK.STATUS}.
+
+</message>
+                </message_template>
+                <message_template>
+                    <event_source>DISCOVERY</event_source>
+                    <operation_mode>PROBLEM</operation_mode>
+                    <subject>Discovery rule: {DISCOVERY.RULE.NAME}</subject>
+                    <message>Device IP: {DISCOVERY.DEVICE.IPADDRESS}
+
+Device DNS: {DISCOVERY.DEVICE.DNS}
+
+Device status: {DISCOVERY.DEVICE.STATUS}
+
+Device uptime: {DISCOVERY.DEVICE.UPTIME}
+
+
+
+Device service name: {DISCOVERY.SERVICE.NAME}
+
+Device service port: {DISCOVERY.SERVICE.PORT}
+
+Device service status: {DISCOVERY.SERVICE.STATUS}
+
+Device service uptime: {DISCOVERY.SERVICE.UPTIME}
+
+
+
+</message>
+                </message_template>
+                <message_template>
+                    <event_source>AUTOREGISTRATION</event_source>
+                    <operation_mode>PROBLEM</operation_mode>
+                    <subject>Subject: Autoregistration: {HOST.HOST}</subject>
+                    <message>Host name: {HOST.HOST}
+
+Host IP: {HOST.IP}
+
+Agent port: {HOST.PORT}</message>
+                </message_template>
+            </message_templates>
+        </media_type>
+    </media_types>
+</zabbix_export>

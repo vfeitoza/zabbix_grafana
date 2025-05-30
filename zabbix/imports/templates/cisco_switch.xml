@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>7.0</version>
+    <templates>
+        <template>
+            <uuid>cbf37c09992e4d19af7552ae0ee60d34</uuid>
+            <template>Monitoramento - Cisco Switch</template>
+            <name>Monitoramento - Cisco Switch</name>
+            <groups>
+                <group>
+                    <name>Fabricante - CISCO</name>
+                </group>
+                <group>
+                    <name>Equipamentos</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>7a7d7d3243a14ed8a1c423e7b93c5d56</uuid>
+                    <name>Serial Number</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.9.3.6.3.0</snmp_oid>
+                    <key>cisco.chassisId</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                    <description>Coleta numero de Série</description>
+                    <inventory_link>CHASSIS</inventory_link>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>General</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>86892c29176a4a7caa4b36530f8031e5</uuid>
+                    <name>CPU Load 5m</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.9.9.109.1.1.1.1.8.1</snmp_oid>
+                    <key>cisco.cpmCPUTotal5minRev</key>
+                    <history>30d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>CPU</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>4b0dace041ae4ecc957ed99efe1c3f08</uuid>
+                    <name>CPU Load 5s</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.9.9.109.1.1.1.1.6.1</snmp_oid>
+                    <key>cisco.cpmCPUTotal5secRev</key>
+                    <history>30d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>CPU</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>cb63f02433774c5a99e08d3f6c506924</uuid>
+                    <name>Free Memory</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.9.9.48.1.1.1.6.1</snmp_oid>
+                    <key>ciscoMemoryPoolFree</key>
+                    <history>30d</history>
+                    <units>B</units>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Memory</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>a21807f2b9ec43d6841ca6dc44eb3f2c</uuid>
+                            <expression>max(/Monitoramento - Cisco Switch/ciscoMemoryPoolFree,10m)&lt;5</expression>
+                            <name>{HOSTNAME} - Lack of available memory &lt;5MB</name>
+                            <status>DISABLED</status>
+                            <priority>HIGH</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>e5af1207dc7b4e07803a054cfacd23ed</uuid>
+                            <expression>max(/Monitoramento - Cisco Switch/ciscoMemoryPoolFree,10m)&lt;10</expression>
+                            <name>{HOSTNAME} - Lack of available memory &lt;10MB</name>
+                            <status>DISABLED</status>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>9bec3f662ef24c108714feafbddc34cf</uuid>
+                    <name>Used Memory 5m</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.9.9.48.1.1.1.5.1</snmp_oid>
+                    <key>ciscoMemoryPoolUsed</key>
+                    <history>30d</history>
+                    <units>B</units>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Memory</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>a352edc3525d46e9945dbff0c7581be1</uuid>
+                    <name>CPU Load 1m</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.9.9.109.1.1.1.1.7.1</snmp_oid>
+                    <key>CPUTotal1minRev</key>
+                    <history>30d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>CPU</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>38a11f99080e43b49fabea1d701e8c7f</uuid>
+                            <expression>max(/Monitoramento - Cisco Switch/CPUTotal1minRev,10m)&gt;80</expression>
+                            <name>{HOST.NAME} - CPU Load 1min &gt; 80%</name>
+                            <status>DISABLED</status>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>c6a5d3f0f9434e799211e99941d02cf7</uuid>
+                            <expression>max(/Monitoramento - Cisco Switch/CPUTotal1minRev,10m)&gt;95</expression>
+                            <name>{HOST.NAME} - CPU Load 1min &gt; 95%</name>
+                            <status>DISABLED</status>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>920f7e5583564840a86d34c13b7e65e1</uuid>
+                    <name>Uptime 2</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>SNMP-FRAMEWORK-MIB::snmpEngineTime.0</snmp_oid>
+                    <key>SNMP-FRAMEWORK-MIB</key>
+                    <history>30d</history>
+                    <units>uptime</units>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>General</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>6d1b8968e1ce4668b6c876d7a29a281e</uuid>
+                            <expression>last(/Monitoramento - Cisco Switch/SNMP-FRAMEWORK-MIB)&lt;600</expression>
+                            <name>{HOST.NAME} - {HOST.IP} was restarted</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                            <description>Roteador foi reiniciado</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>b1b02202dabd48f0986e24d0b3875fdb</uuid>
+                    <name>SNMP Contact</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.4.0</snmp_oid>
+                    <key>sysContact</key>
+                    <delay>1h</delay>
+                    <history>90d</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <inventory_link>CONTACT</inventory_link>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SNMP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>c89ceaf964a4477baf19eadf6805cf10</uuid>
+                    <name>SNMP Location</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.6.0</snmp_oid>
+                    <key>sysLocation</key>
+                    <delay>1h</delay>
+                    <history>90d</history>
+                    <value_type>CHAR</value_type>
+                    <trends>0</trends>
+                    <inventory_link>LOCATION</inventory_link>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SNMP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>01d6b22e7df4493197954e6a3fc6624d</uuid>
+                    <name>Hostname</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.5.0</snmp_oid>
+                    <key>sysName</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                    <description>Coleta Informação do hostname do dispositivo</description>
+                    <inventory_link>NAME</inventory_link>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>General</value>
+                        </tag>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>SNMP</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>52cbcaf24f934f6694ff5dbfe24ea62f</uuid>
+                    <name>Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>SNMPv2-MIB::sysUpTime.0</snmp_oid>
+                    <key>sysUpTime</key>
+                    <history>30d</history>
+                    <units>uptime</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>General</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>5e1c351ea2564876b21dc800c213ff54</uuid>
+                            <expression>last(/Monitoramento - Cisco Switch/sysUpTime)&lt;600</expression>
+                            <name>{HOST.NAME} - {HOST.IP} was restarted</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                            <description>Roteador foi reiniciado</description>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>2b88d3f97c234da083aefe8ff0633e39</uuid>
+                    <name>Network interfaces</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},1.3.6.1.2.1.31.1.1.1.18,{#IFADMINSTATUS},1.3.6.1.2.1.2.2.1.7,{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18,{#IFNAME},1.3.6.1.2.1.31.1.1.1.1,{#IFDESCR},1.3.6.1.2.1.2.2.1.2,{#IFTYPE},1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>if-discovery</key>
+                    <delay>10m</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFADMINSTATUS}</macro>
+                                <value>1</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>1d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>6bf084d70962412f88248541e00f00f5</uuid>
+                            <name>Status Operacional - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>if.net.opstatus[{#IFNAME}]</key>
+                            <valuemap>
+                                <name>SNMP interface status (ifOperStatus)</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>5eda3e8b78fd4e93ba79cd767d725025</uuid>
+                                    <expression>last(/Monitoramento - Cisco Switch/if.net.opstatus[{#IFNAME}])=2</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/Monitoramento - Cisco Switch/if.net.opstatus[{#IFNAME}])=1</recovery_expression>
+                                    <name>Mudança de Status Operacional na {#IFNAME}</name>
+                                    <priority>AVERAGE</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>Mudança de Status Administrativo na {#IFNAME}</name>
+                                            <expression>last(/Monitoramento - Cisco Switch/net.if.admstatus[{#IFNAME}])=2</expression>
+                                            <recovery_expression>last(/Monitoramento - Cisco Switch/net.if.admstatus[{#IFNAME}])=1</recovery_expression>
+                                        </dependency>
+                                    </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>interface</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>8a3138140ccb4446b50908376e96c4b4</uuid>
+                            <name>Alias - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>IF-MIB::ifAlias.{#SNMPINDEX}</snmp_oid>
+                            <key>ifAlias[{#IFNAME}]</key>
+                            <delay>1h</delay>
+                            <history>1w</history>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>f2f42af44a6d4e8a91504ba647df8b4f</uuid>
+                            <name>Description - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.18.{#SNMPINDEX}</snmp_oid>
+                            <key>ifDescr[{#IFNAME}]</key>
+                            <delay>1h</delay>
+                            <history>1w</history>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>e15d7804f6454e94806af1e428e4558c</uuid>
+                            <name>Name - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>ifName[{#IFNAME}]</key>
+                            <delay>1h</delay>
+                            <history>1w</history>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>0dd1372f6b77432bb9e0a7a140f44648</uuid>
+                            <name>Status Administrativo - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.admstatus[{#IFNAME}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <valuemap>
+                                <name>SNMP interface status (ifAdminStatus)</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>9415989a15714740b04af2121f879a4c</uuid>
+                                    <expression>last(/Monitoramento - Cisco Switch/net.if.admstatus[{#IFNAME}])=2</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/Monitoramento - Cisco Switch/net.if.admstatus[{#IFNAME}])=1</recovery_expression>
+                                    <name>Mudança de Status Administrativo na {#IFNAME}</name>
+                                    <priority>INFO</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>interface</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>d930aea9251d4800ba29e96a6fe15346</uuid>
+                            <name>Pacotes Recebidos Descartados - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.13.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in.discards.[{#IFNAME}]</key>
+                            <history>365d</history>
+                            <trends>900d</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>c6053d481ae041ebbd1586af14fced94</uuid>
+                            <name>Pacotes Recebidos com Erro - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.14.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in.error.[{#IFNAME}]</key>
+                            <history>365d</history>
+                            <trends>900d</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>1d7aa3fde347411489f789f1069f58b5</uuid>
+                            <name>Trafego Recebido - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in[ifHCInOctets.{#IFNAME}]</key>
+                            <history>365d</history>
+                            <trends>900d</trends>
+                            <units>bps</units>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>e5352f5cca144f7db6c391a20674f7ac</uuid>
+                            <name>Pacotes Enviados Descartados - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.19.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out.discards.[{#IFNAME}]</key>
+                            <history>365d</history>
+                            <trends>900d</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>39391f6dc8864dcab75463e75ace93aa</uuid>
+                            <name>Pacotes Enviados com Erro - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.20.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out.error.[{#IFNAME}]</key>
+                            <history>365d</history>
+                            <trends>900d</trends>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>247ced1af9bf4f90860d8db5b1c26c3a</uuid>
+                            <name>Trafego Enviado - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out[ifHCOutOctets.{#IFNAME}]</key>
+                            <history>365d</history>
+                            <trends>900d</trends>
+                            <units>bps</units>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>2ce3aaa1817c45c1a4f299a02bba40e5</uuid>
+                            <name>Speed - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.15.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.speed[ifHighSpeed.{#IFNAME}]</key>
+                            <history>7d</history>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <uuid>64d980d9a4a845a587ffed054e3cd727</uuid>
+                            <expression>(avg(/Monitoramento - Cisco Switch/net.if.in[ifHCInOctets.{#IFNAME}],15m)&gt;({$IF_UTIL_MAX:&quot;{#IFNAME}&quot;}/100)*last(/Monitoramento - Cisco Switch/net.if.speed[ifHighSpeed.{#IFNAME}]) or
+avg(/Monitoramento - Cisco Switch/net.if.out[ifHCOutOctets.{#IFNAME}],15m)&gt;({$IF_UTIL_MAX:&quot;{#IFNAME}&quot;}/100)*last(/Monitoramento - Cisco Switch/net.if.speed[ifHighSpeed.{#IFNAME}])) and
+last(/Monitoramento - Cisco Switch/net.if.speed[ifHighSpeed.{#IFNAME}])&gt;0</expression>
+                            <name>Interface {#IFNAME}{#IFALIAS}: Uso de trafego acima de 90% da Capacidade da Porta.</name>
+                            <status>DISABLED</status>
+                            <tags>
+                                <tag>
+                                    <tag>interface</tag>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>fe329efd01e945eaaa5ffeddbb099abc</uuid>
+                            <name>Interface - {#IFALIAS}</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>00DD00</color>
+                                    <item>
+                                        <host>Monitoramento - Cisco Switch</host>
+                                        <key>net.if.in[ifHCInOctets.{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>0000EE</color>
+                                    <item>
+                                        <host>Monitoramento - Cisco Switch</host>
+                                        <key>net.if.out[ifHCOutOctets.{#IFNAME}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>4ac11a682008419892e255a253133351</uuid>
+                    <name>Network Interfaces Discovery Optical</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#ENTPHYSICALNAME},1.3.6.1.2.1.47.1.1.1.1.7]</snmp_oid>
+                    <key>net.if.discovery.optical</key>
+                    <delay>10m</delay>
+                    <status>DISABLED</status>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#ENTPHYSICALNAME}</macro>
+                                <value>.*(Transmit|Receive) Power Sensor$</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>3768bad028bf4f69a4304494f4541a94</uuid>
+                            <name>{#ENTPHYSICALNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.9.9.91.1.1.1.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>hwEntityOpticalRxPower[{#SNMPINDEX}]</key>
+                            <delay>600s</delay>
+                            <value_type>FLOAT</value_type>
+                            <units>dBm</units>
+                            <preprocessing>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>0.1</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Optical</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <valuemaps>
+                <valuemap>
+                    <uuid>ea1db7651da44a899e0b7740ebbe45fc</uuid>
+                    <name>SNMP interface status (ifAdminStatus)</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>UP</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>DOWN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>TESTING</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>12ca7ec8cd314b499a2edf664602b736</uuid>
+                    <name>SNMP interface status (ifOperStatus)</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>UP</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>DOWN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>TESTING</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>UNKNOWN</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>DORMANT</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>NOTPRESENT</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>LOWERLAYERDOWN</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>80630fb6a42b46deb22787b18df702e8</uuid>
+            <name>CPU Load 1m</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00DD00</color>
+                    <item>
+                        <host>Monitoramento - Cisco Switch</host>
+                        <key>CPUTotal1minRev</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>22cca24de9384a64bdd48275ba0ea1a2</uuid>
+            <name>CPU Load 5m</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <color>00C800</color>
+                    <item>
+                        <host>Monitoramento - Cisco Switch</host>
+                        <key>cisco.cpmCPUTotal5minRev</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>70a13daa9ca542f6b3db3bdb298b49ec</uuid>
+            <name>CPU Load 5s</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>00C800</color>
+                    <item>
+                        <host>Monitoramento - Cisco Switch</host>
+                        <key>cisco.cpmCPUTotal5secRev</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>6d4350aaba8d40b79c0a00aad8e3d52a</uuid>
+            <name>Memory</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>00DD00</color>
+                    <item>
+                        <host>Monitoramento - Cisco Switch</host>
+                        <key>ciscoMemoryPoolFree</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>C80000</color>
+                    <item>
+                        <host>Monitoramento - Cisco Switch</host>
+                        <key>ciscoMemoryPoolUsed</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>bee5a9a5138a49e880543ab62e000bdb</uuid>
+            <name>Uptime</name>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>00AA00</color>
+                    <item>
+                        <host>Monitoramento - Cisco Switch</host>
+                        <key>sysUpTime</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>3333FF</color>
+                    <item>
+                        <host>Monitoramento - Cisco Switch</host>
+                        <key>SNMP-FRAMEWORK-MIB</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

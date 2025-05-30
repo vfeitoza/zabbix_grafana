@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>7.0</version>
+    <host_groups>
+        <host_group>
+            <uuid>3faa64303d5f4bcd843bb88f6768e603</uuid>
+            <name>Conteudos</name>
+        </host_group>
+        <host_group>
+            <uuid>a0e1e6748db348d0839600fed1fcb0a9</uuid>
+            <name>Fabricante - CISCO</name>
+        </host_group>
+        <host_group>
+            <uuid>299ad6a8931043918472125345d3ab60</uuid>
+            <name>Fabricante - DATACOM</name>
+        </host_group>
+        <host_group>
+            <uuid>c99faff5309f4979b9b6a840f0c21659</uuid>
+            <name>Fabricante - FIBERHOME</name>
+        </host_group>
+        <host_group>
+            <uuid>e10e09b1b5f1491a8cb9d174c2908672</uuid>
+            <name>Fabricante - HUAWEI</name>
+        </host_group>
+        <host_group>
+            <uuid>f379b1481f5d45e194b52b94f675c566</uuid>
+            <name>Fabricante - JUNIPER</name>
+        </host_group>
+        <host_group>
+            <uuid>281f3d0a1bc546b088b79d4f932acb09</uuid>
+            <name>Fabricante - MIKROTIK</name>
+        </host_group>
+        <host_group>
+            <uuid>7c257daf782a42088f21b535aedc5e47</uuid>
+            <name>Fabricante - ZTE</name>
+        </host_group>
+        <host_group>
+            <uuid>df40d4a9b8d9492b884e82962e59ec58</uuid>
+            <name>OLT</name>
+        </host_group>
+        <host_group>
+            <uuid>1c27d57f9bba4a0294fd07787fbf6679</uuid>
+            <name>ROUTER</name>
+        </host_group>
+        <host_group>
+            <uuid>f69ff957ca1d4d76a72e17d62ad9fe61</uuid>
+            <name>SWITCH</name>
+        </host_group>
+    </host_groups>
+    <template_groups>
+        <template_group>
+            <uuid>d74a9bcf449247c5a846fdb7744e5f1f</uuid>
+            <name>Fabricante - CISCO</name>
+        </template_group>
+        <template_group>
+            <uuid>e2265d359f0d4940a0d0d42e98684a52</uuid>
+            <name>Fabricante - DATACOM</name>
+        </template_group>
+        <template_group>
+            <uuid>8885ec2290b9454893e62be63e06a6ae</uuid>
+            <name>Fabricante - FIBERHOME</name>
+        </template_group>
+        <template_group>
+            <uuid>7faa1e9563f7461e9f4b31c7dedaca63</uuid>
+            <name>Fabricante - HUAWEI</name>
+        </template_group>
+        <template_group>
+            <uuid>11da1ebcda4e4640a22d7bc79c94ef69</uuid>
+            <name>Fabricante - JUNIPER</name>
+        </template_group>
+        <template_group>
+            <uuid>9492949f80d64093a318acf4920e72af</uuid>
+            <name>Fabricante - MIKROTIK</name>
+        </template_group>
+        <template_group>
+            <uuid>f3f0399a2fae432e8a0b19e86d4d5dff</uuid>
+            <name>Fabricante - ZTE</name>
+        </template_group>
+        <template_group>
+            <uuid>13bf23ae677049cdb9e0f5cb61f75c89</uuid>
+            <name>Equipamentos</name>
+        </template_group>
+        <template_group>
+            <uuid>b78908d624c542149b543a1a4a6e4e65</uuid>
+            <name>OLT's</name>
+        </template_group>
+    </template_groups>
+</zabbix_export>
